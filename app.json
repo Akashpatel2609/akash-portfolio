@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Pocket Ledger",
+    "slug": "pocket-ledger",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#f7f4ef"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.local.pocketledger"
+    },
+    "android": {
+      "package": "com.local.pocketledger"
+    },
+    "web": {}
+  }
+}

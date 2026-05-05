@@ -1,0 +1,10 @@
+node_modules/
+.expo/
+.edge-qa*/
+qa-*.png
+dist/
+web-build/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store

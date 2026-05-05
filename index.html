@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pocket Ledger</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar liquid-hero" aria-label="Budget overview">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div>
+            <p>Pocket Ledger</p>
+            <strong>Personal finance</strong>
+          </div>
+        </div>
+
+        <section class="hero-copy">
+          <p class="eyebrow">Monthly money command</p>
+          <h1>Track every dollar.</h1>
+          <p>Paychecks, spending, savings, and debt in one sharp local dashboard.</p>
+        </section>
+
+        <div class="trust-row" aria-label="Highlights">
+          <span>Private local data</span>
+          <span>CSV ready</span>
+        </div>
+
+        <section class="cash-card">
+          <p class="eyebrow">Net cash flow</p>
+          <h1 id="netTotal">$0.00</h1>
+          <p id="monthLabel">This month</p>
+          <div class="meter" aria-hidden="true">
+            <span id="cashMeter"></span>
+          </div>
+        </section>
+
+        <nav class="nav-tabs" aria-label="Views">
+          <button class="active" data-tab="ledger" type="button">Ledger</button>
+          <button data-tab="debts" type="button">Debts</button>
+          <button data-tab="savings" type="button">Savings</button>
+        </nav>
+
+        <button class="ghost-button" id="exportButton" type="button">Export CSV</button>
+      </aside>
+
+      <section class="workspace dark-void">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Monthly tracker</p>
+            <h2 id="pageTitle">Budget Dashboard</h2>
+          </div>
+          <div class="month-controls">
+            <button class="icon-button" id="prevMonth" type="button" aria-label="Previous month">&lsaquo;</button>
+            <button class="month-button" id="currentMonth" type="button">Current Month</button>
+            <button class="icon-button" id="nextMonth" type="button" aria-label="Next month">&rsaquo;</button>
+          </div>
+        </header>
+
+        <section class="summary-grid" aria-label="Monthly summary">
+          <article>
+            <p>Income</p>
+            <strong id="incomeTotal">$0.00</strong>
+          </article>
+          <article>
+            <p>Expenses</p>
+            <strong id="expenseTotal">$0.00</strong>
+          </article>
+          <article>
+            <p>Savings</p>
+            <strong id="savingsTotal">$0.00</strong>
+          </article>
+          <article>
+            <p>Debt Paid</p>
+            <strong id="debtPaidTotal">$0.00</strong>
+          </article>
+        </section>
+
+        <section class="glass-showcase" aria-label="Budget card preview">
+          <div class="glass-card float-card">
+            <div class="glass-card-top">
+              <span>Pocket Ledger</span>
+              <strong>Live Budget</strong>
+            </div>
+            <div class="glass-chip" aria-hidden="true"></div>
+            <p>Monthly control</p>
+            <h3 id="glassNetTotal">$0.00</h3>
+          </div>
+          <div class="ticker" aria-label="Budget categories">
+            <span>Income</span>
+            <span>Expenses</span>
+            <span>Savings</span>
+            <span>Debt</span>
+            <span>Cash Flow</span>
+          </div>
+        </section>
+
+        <section class="panel active" id="ledgerPanel">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Activity</p>
+              <h3>Income and Spending</h3>
+            </div>
+          </div>
+
+          <form class="entry-form" id="transactionForm">
+            <label>
+              Type
+              <select id="transactionKind">
+                <option value="expense">Expense</option>
+                <option value="income">Paycheck</option>
+                <option value="savings">Savings</option>
+                <option value="debt">Debt Payment</option>
+              </select>
+            </label>
+            <label>
+              Amount
+              <input id="transactionAmount" inputmode="decimal" placeholder="0.00" required />
+            </label>
+            <label>
+              Category
+              <input id="transactionCategory" placeholder="Groceries, rent, salary" required />
+            </label>
+            <label>
+              Date
+              <input id="transactionDate" type="date" required />
+            </label>
+            <label class="wide">
+              Note
+              <input id="transactionNote" placeholder="Optional note" />
+            </label>
+            <button class="primary-button" type="submit">Add Entry</button>
+          </form>
+
+          <div class="list" id="transactionList"></div>
+        </section>
+
+        <section class="panel" id="debtsPanel">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Balances</p>
+              <h3>Debt Tracker</h3>
+            </div>
+            <strong id="debtBalanceTotal">$0.00</strong>
+          </div>
+
+          <form class="entry-form compact" id="debtForm">
+            <label>
+              Name
+              <input id="debtName" placeholder="Credit card, car loan" required />
+            </label>
+            <label>
+              Balance
+              <input id="debtBalance" inputmode="decimal" placeholder="0.00" required />
+            </label>
+            <label>
+              Minimum Payment
+              <input id="debtMinimum" inputmode="decimal" placeholder="0.00" />
+            </label>
+            <button class="primary-button" type="submit">Add Debt</button>
+          </form>
+
+          <div class="list" id="debtList"></div>
+        </section>
+
+        <section class="panel" id="savingsPanel">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Targets</p>
+              <h3>Savings Goals</h3>
+            </div>
+            <strong id="goalBalanceTotal">$0.00</strong>
+          </div>
+
+          <form class="entry-form compact" id="goalForm">
+            <label>
+              Goal
+              <input id="goalName" placeholder="Emergency fund" required />
+            </label>
+            <label>
+              Target
+              <input id="goalTarget" inputmode="decimal" placeholder="0.00" required />
+            </label>
+            <label>
+              Saved
+              <input id="goalSaved" inputmode="decimal" placeholder="0.00" />
+            </label>
+            <button class="primary-button" type="submit">Add Goal</button>
+          </form>
+
+          <div class="list" id="goalList"></div>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

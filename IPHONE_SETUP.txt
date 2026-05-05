@@ -1,0 +1,12 @@
+Pocket Ledger is ready.
+
+To open it on your iPhone:
+
+1. Install "Expo Go" from the App Store.
+2. Double-click Start-Pocket-Ledger.bat on this computer.
+3. Scan the QR code with Expo Go.
+
+Keep the computer window open while using the app.
+
+Current direct address:
+exp://192.168.2.253:8082

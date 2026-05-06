@@ -205,12 +205,12 @@ button {
 .liquid-hero::after {
   background: var(--onyx);
   border-radius: 999px;
-  bottom: -90px;
+  bottom: -185px;
   content: "";
-  height: 190px;
+  height: 220px;
   position: absolute;
-  right: -70px;
-  width: 250px;
+  right: -130px;
+  width: 300px;
 }
 
 .brand {
@@ -922,8 +922,8 @@ select:focus {
   }
 
   .liquid-hero::after {
-    bottom: -150px;
-    right: -150px;
+    bottom: -190px;
+    right: -190px;
   }
 
   .liquid-hero > * {

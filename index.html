@@ -95,6 +95,39 @@
       </aside>
 
       <section class="workspace dark-void">
+        <header class="mobile-app-header" aria-label="Mobile app navigation">
+          <button class="mobile-menu-button" id="mobileMenuButton" type="button" aria-label="Open menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <button class="brand brand-button" id="mobileHomeButton" type="button" aria-label="Pocket Ledger dashboard">
+            <img class="brand-mark" src="assets/pocket-ledger-logo.svg" alt="" aria-hidden="true" />
+            <span>
+              <span>Pocket Ledger</span>
+              <strong>Personal finance</strong>
+            </span>
+          </button>
+        </header>
+
+        <div class="mobile-menu-overlay hidden" id="mobileMenuOverlay">
+          <aside class="mobile-menu-panel" aria-label="Mobile menu">
+            <div class="mobile-menu-top">
+              <div>
+                <p class="eyebrow">Menu</p>
+                <strong>Pocket Ledger</strong>
+              </div>
+              <button class="icon-button" id="mobileMenuClose" type="button" aria-label="Close menu">x</button>
+            </div>
+            <nav class="mobile-menu-links">
+              <button class="active" data-mobile-tab="ledger" type="button">Activity</button>
+              <button data-mobile-tab="debts" type="button">Debts</button>
+              <button data-mobile-tab="savings" type="button">Savings</button>
+            </nav>
+            <button class="ghost-light-button" id="mobileExportButton" type="button">Export CSV</button>
+          </aside>
+        </div>
+
         <header class="topbar">
           <div>
             <p class="eyebrow">Monthly tracker</p>

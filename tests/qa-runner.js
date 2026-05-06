@@ -74,6 +74,11 @@ function makeDocument() {
     "demoButton",
     "onboardingHomeButton",
     "dashboardHomeButton",
+    "mobileHomeButton",
+    "mobileMenuButton",
+    "mobileMenuClose",
+    "mobileMenuOverlay",
+    "mobileExportButton",
     "netTotal",
     "glassNetTotal",
     "monthLabel",
@@ -109,12 +114,21 @@ function makeDocument() {
   ];
   const elements = Object.fromEntries(ids.map((id) => [id, new Element({ id })]));
   const navTabs = new Element({ classes: "nav-tabs" });
+  const mobileMenuLinks = new Element({ classes: "mobile-menu-links" });
   const navButtons = ["ledger", "debts", "savings"].map(
     (tab, index) =>
       new Element({
         dataset: { tab },
         classes: index === 0 ? "active" : "",
         matches: (selector) => selector === "button[data-tab]"
+      })
+  );
+  const mobileNavButtons = ["ledger", "debts", "savings"].map(
+    (tab, index) =>
+      new Element({
+        dataset: { mobileTab: tab },
+        classes: index === 0 ? "active" : "",
+        matches: (selector) => selector === "button[data-mobile-tab]"
       })
   );
   const panels = ["ledgerPanel", "debtsPanel", "savingsPanel"].map(
@@ -125,6 +139,7 @@ function makeDocument() {
   return {
     elements,
     navButtons,
+    mobileNavButtons,
     panels,
     querySelector(selector) {
       if (selector.startsWith("#")) {
@@ -133,11 +148,17 @@ function makeDocument() {
       if (selector === ".nav-tabs") {
         return navTabs;
       }
+      if (selector === ".mobile-menu-links") {
+        return mobileMenuLinks;
+      }
       throw new Error(`Unexpected selector: ${selector}`);
     },
     querySelectorAll(selector) {
       if (selector === ".nav-tabs button") {
         return navButtons;
+      }
+      if (selector === "[data-mobile-tab]") {
+        return mobileNavButtons;
       }
       if (selector === ".panel") {
         return panels;

@@ -48,6 +48,11 @@ const selectors = {
   demoButton: document.querySelector("#demoButton"),
   onboardingHomeButton: document.querySelector("#onboardingHomeButton"),
   dashboardHomeButton: document.querySelector("#dashboardHomeButton"),
+  mobileHomeButton: document.querySelector("#mobileHomeButton"),
+  mobileMenuButton: document.querySelector("#mobileMenuButton"),
+  mobileMenuClose: document.querySelector("#mobileMenuClose"),
+  mobileMenuOverlay: document.querySelector("#mobileMenuOverlay"),
+  mobileExportButton: document.querySelector("#mobileExportButton"),
   netTotal: document.querySelector("#netTotal"),
   glassNetTotal: document.querySelector("#glassNetTotal"),
   monthLabel: document.querySelector("#monthLabel"),
@@ -107,6 +112,14 @@ function showDashboard() {
   selectors.appShell.classList.remove("hidden");
   window.location.hash = "dashboard";
   window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function openMobileMenu() {
+  selectors.mobileMenuOverlay.classList.remove("hidden");
+}
+
+function closeMobileMenu() {
+  selectors.mobileMenuOverlay.classList.add("hidden");
 }
 
 function loadLocal() {
@@ -359,6 +372,10 @@ function setTab(tabName) {
     button.classList.toggle("active", button.dataset.tab === tabName);
   });
 
+  document.querySelectorAll("[data-mobile-tab]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.mobileTab === tabName);
+  });
+
   document.querySelectorAll(".panel").forEach((panel) => {
     panel.classList.toggle("active", panel.id === `${tabName}Panel`);
   });
@@ -589,6 +606,10 @@ document.querySelector("#currentMonth").addEventListener("click", () => {
   render();
 });
 document.querySelector("#exportButton").addEventListener("click", exportCsv);
+selectors.mobileExportButton.addEventListener("click", () => {
+  exportCsv();
+  closeMobileMenu();
+});
 selectors.authForm.addEventListener("submit", signIn);
 selectors.signUpButton.addEventListener("click", signUp);
 selectors.signOutButton.addEventListener("click", signOut);
@@ -604,10 +625,28 @@ selectors.dashboardHomeButton.addEventListener("click", () => {
   setTab("ledger");
   showDashboard();
 });
+selectors.mobileHomeButton.addEventListener("click", () => {
+  setTab("ledger");
+  showDashboard();
+});
+selectors.mobileMenuButton.addEventListener("click", openMobileMenu);
+selectors.mobileMenuClose.addEventListener("click", closeMobileMenu);
+selectors.mobileMenuOverlay.addEventListener("click", (event) => {
+  if (event.target === selectors.mobileMenuOverlay) {
+    closeMobileMenu();
+  }
+});
 
 document.querySelector(".nav-tabs").addEventListener("click", (event) => {
   if (event.target.matches("button[data-tab]")) {
     setTab(event.target.dataset.tab);
+  }
+});
+
+document.querySelector(".mobile-menu-links").addEventListener("click", (event) => {
+  if (event.target.matches("button[data-mobile-tab]")) {
+    setTab(event.target.dataset.mobileTab);
+    closeMobileMenu();
   }
 });
 

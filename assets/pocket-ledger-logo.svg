@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Pocket Ledger logo</title>
+  <desc id="desc">A black circular fintech mark with yellow ledger bars and a pocket curve.</desc>
+  <rect width="512" height="512" rx="128" fill="#FDE047"/>
+  <circle cx="256" cy="256" r="178" fill="#0A0A0A"/>
+  <path d="M149 310c31 44 83 72 143 72 72 0 134-44 160-107-33 25-81 41-135 41H190c-15 0-29-2-41-6Z" fill="#FDE047" opacity=".92"/>
+  <rect x="158" y="214" width="36" height="112" rx="18" fill="#FDE047"/>
+  <rect x="222" y="164" width="36" height="162" rx="18" fill="#FDE047"/>
+  <rect x="286" y="196" width="36" height="130" rx="18" fill="#FDE047"/>
+  <path d="M352 157c0-16 13-29 29-29h1c16 0 29 13 29 29v95c0 16-13 29-29 29h-1c-16 0-29-13-29-29v-95Z" fill="#FDE047"/>
+</svg>

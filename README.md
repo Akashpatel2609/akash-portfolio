@@ -43,10 +43,16 @@ Pocket-Ledger/
 |-- app.js              # App logic, auth, database sync, local fallback
 |-- config.js           # Supabase URL and anon public key
 |-- database.sql        # Supabase tables, policies, and row-level security
+|-- assets/
+|   `-- pocket-ledger-logo.svg
 |-- tests/
 |   `-- qa-runner.js    # Local functionality test harness
 `-- README.md
 ```
+
+## Brand Asset
+
+The app uses [`assets/pocket-ledger-logo.svg`](assets/pocket-ledger-logo.svg) as both the website header logo and browser tab favicon.
 
 ## Database Setup
 

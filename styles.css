@@ -268,34 +268,11 @@ label {
 }
 
 .brand-mark {
-  align-items: end;
-  background: var(--onyx);
-  border-radius: 999px;
-  display: flex;
-  gap: 4px;
-  height: 50px;
-  justify-content: center;
-  padding: 11px;
-  width: 50px;
-}
-
-.brand-mark span {
-  background: var(--yellow);
   border-radius: 999px;
   display: block;
-  width: 7px;
-}
-
-.brand-mark span:nth-child(1) {
-  height: 15px;
-}
-
-.brand-mark span:nth-child(2) {
-  height: 25px;
-}
-
-.brand-mark span:nth-child(3) {
-  height: 20px;
+  height: 50px;
+  object-fit: contain;
+  width: 50px;
 }
 
 .hero-copy {

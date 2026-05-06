@@ -13,6 +13,8 @@ Pocket Ledger is a personal finance tracker for logging monthly income, expenses
 ## Features
 
 - Email/password sign in with Supabase Auth
+- Google sign-in interface using Supabase OAuth
+- Onboarding screen before the main dashboard
 - Cloud database storage with Supabase Postgres
 - Row-level security so users can only access their own records
 - Monthly income, expense, savings, debt payment, and net cash-flow summaries
@@ -36,14 +38,14 @@ Pocket Ledger is a personal finance tracker for logging monthly income, expenses
 
 ```text
 Pocket-Ledger/
-├── index.html          # Main website markup
-├── styles.css          # Hyper-saturated fintech UI styling
-├── app.js              # App logic, auth, database sync, local fallback
-├── config.js           # Supabase URL and anon public key
-├── database.sql        # Supabase tables, policies, and row-level security
-├── tests/
-│   └── qa-runner.js    # Local functionality test harness
-└── README.md
+|-- index.html          # Main website markup
+|-- styles.css          # Hyper-saturated fintech UI styling
+|-- app.js              # App logic, auth, database sync, local fallback
+|-- config.js           # Supabase URL and anon public key
+|-- database.sql        # Supabase tables, policies, and row-level security
+|-- tests/
+|   `-- qa-runner.js    # Local functionality test harness
+`-- README.md
 ```
 
 ## Database Setup
@@ -74,6 +76,22 @@ window.POCKET_LEDGER_CONFIG = {
 ```
 
 Only use the Supabase **anon public key** in this file. Do not use the service role key in a browser app.
+
+## Google Auth Setup
+
+The app includes a **Continue with Google** button. To make it work, enable Google as an OAuth provider in Supabase:
+
+1. Open Supabase.
+2. Go to **Authentication > Providers**.
+3. Enable **Google**.
+4. Add your Google OAuth client ID and client secret.
+5. In Supabase, add your GitHub Pages URL as an allowed redirect URL:
+
+```text
+https://akashpatel2609.github.io/Pocket-Ledger/
+```
+
+If Google is not configured in Supabase, email/password auth will still work.
 
 ## Run Locally
 

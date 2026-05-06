@@ -10,6 +10,7 @@ const supabaseClient =
 const state = {
   month: new Date().toISOString().slice(0, 7),
   session: null,
+  demoMode: false,
   data: {
     transactions: [],
     debts: [],
@@ -35,13 +36,18 @@ const monthName = new Intl.DateTimeFormat("en-US", {
 });
 
 const selectors = {
-  authPanel: document.querySelector("#authPanel"),
+  onboardingScreen: document.querySelector("#onboardingScreen"),
+  appShell: document.querySelector("#appShell"),
   authForm: document.querySelector("#authForm"),
   authEmail: document.querySelector("#authEmail"),
   authPassword: document.querySelector("#authPassword"),
   authStatus: document.querySelector("#authStatus"),
   signUpButton: document.querySelector("#signUpButton"),
   signOutButton: document.querySelector("#signOutButton"),
+  googleButton: document.querySelector("#googleButton"),
+  demoButton: document.querySelector("#demoButton"),
+  onboardingHomeButton: document.querySelector("#onboardingHomeButton"),
+  dashboardHomeButton: document.querySelector("#dashboardHomeButton"),
   netTotal: document.querySelector("#netTotal"),
   glassNetTotal: document.querySelector("#glassNetTotal"),
   monthLabel: document.querySelector("#monthLabel"),
@@ -63,8 +69,25 @@ function isCloudMode() {
   return Boolean(supabaseClient && state.session);
 }
 
+function canUseDashboard() {
+  return Boolean(state.session || state.demoMode || !supabaseClient);
+}
+
 function setStatus(message) {
   selectors.authStatus.textContent = message;
+}
+
+function showOnboarding() {
+  selectors.onboardingScreen.classList.remove("hidden");
+  selectors.appShell.classList.add("hidden");
+  window.location.hash = "welcome";
+}
+
+function showDashboard() {
+  selectors.onboardingScreen.classList.add("hidden");
+  selectors.appShell.classList.remove("hidden");
+  window.location.hash = "dashboard";
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function loadLocal() {
@@ -192,19 +215,25 @@ async function loadCloudData() {
 function renderAuth() {
   if (!supabaseClient) {
     selectors.authForm.classList.add("hidden");
+    selectors.googleButton.classList.add("hidden");
+    selectors.demoButton.classList.remove("hidden");
     selectors.signOutButton.classList.add("hidden");
-    setStatus("Local demo mode. Add Supabase URL and anon key in config.js to enable login and database sync.");
+    setStatus("Local demo mode is available because Supabase is not configured.");
     return;
   }
 
   if (state.session) {
     selectors.authForm.classList.add("hidden");
+    selectors.googleButton.classList.add("hidden");
+    selectors.demoButton.classList.add("hidden");
     selectors.signOutButton.classList.remove("hidden");
     setStatus(`Signed in as ${state.session.user.email}. Your data is saved in Supabase.`);
   } else {
     selectors.authForm.classList.remove("hidden");
+    selectors.googleButton.classList.remove("hidden");
+    selectors.demoButton.classList.add("hidden");
     selectors.signOutButton.classList.add("hidden");
-    setStatus("Sign in or create a free account to save your budget to the cloud.");
+    setStatus("Use email or Google to save your budget to Supabase.");
   }
 }
 
@@ -476,7 +505,9 @@ async function signIn(event) {
   }
 
   state.session = data.session;
+  state.demoMode = false;
   await loadCloudData();
+  showDashboard();
 }
 
 async function signUp() {
@@ -493,21 +524,48 @@ async function signUp() {
   }
 
   state.session = data.session;
+  state.demoMode = false;
   if (state.session) {
     await loadCloudData();
+    showDashboard();
   } else {
     setStatus("Account created. Check your email if Supabase asks you to confirm it, then sign in.");
   }
   render();
 }
 
+async function signInWithGoogle() {
+  if (!supabaseClient) return;
+
+  const redirectTo = `${window.location.origin}${window.location.pathname}`;
+  const { error } = await supabaseClient.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo
+    }
+  });
+
+  if (error) {
+    setStatus(`Google sign in failed: ${error.message}`);
+  }
+}
+
 async function signOut() {
   if (!supabaseClient) return;
   await supabaseClient.auth.signOut();
   state.session = null;
+  state.demoMode = false;
   state.data = { transactions: [], debts: [], goals: [] };
   loadLocal();
   render();
+  showOnboarding();
+}
+
+function continueDemo() {
+  state.demoMode = true;
+  loadLocal();
+  render();
+  showDashboard();
 }
 
 async function deleteRow(table, idValue) {
@@ -534,6 +592,19 @@ document.querySelector("#exportButton").addEventListener("click", exportCsv);
 selectors.authForm.addEventListener("submit", signIn);
 selectors.signUpButton.addEventListener("click", signUp);
 selectors.signOutButton.addEventListener("click", signOut);
+selectors.googleButton.addEventListener("click", signInWithGoogle);
+selectors.demoButton.addEventListener("click", continueDemo);
+selectors.onboardingHomeButton.addEventListener("click", () => {
+  if (canUseDashboard()) {
+    showDashboard();
+  } else {
+    showOnboarding();
+  }
+});
+selectors.dashboardHomeButton.addEventListener("click", () => {
+  setTab("ledger");
+  showDashboard();
+});
 
 document.querySelector(".nav-tabs").addEventListener("click", (event) => {
   if (event.target.matches("button[data-tab]")) {
@@ -574,21 +645,30 @@ async function init() {
     supabaseClient.auth.onAuthStateChange(async (_event, session) => {
       state.session = session;
       if (session) {
+        state.demoMode = false;
         await loadCloudData();
+        showDashboard();
       } else {
         state.data = { transactions: [], debts: [], goals: [] };
         loadLocal();
         render();
+        showOnboarding();
       }
     });
 
     if (state.session) {
       await loadCloudData();
+      showDashboard();
       return;
     }
   }
 
   render();
+  if (!supabaseClient) {
+    showDashboard();
+  } else {
+    showOnboarding();
+  }
 }
 
 void init();

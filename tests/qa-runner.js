@@ -63,12 +63,18 @@ function assert(condition, message) {
 function makeDocument() {
   const ids = [
     "authPanel",
+    "onboardingScreen",
+    "appShell",
     "authForm",
     "authEmail",
     "authPassword",
     "authStatus",
     "signUpButton",
     "signOutButton",
+    "googleButton",
+    "demoButton",
+    "onboardingHomeButton",
+    "dashboardHomeButton",
     "netTotal",
     "glassNetTotal",
     "monthLabel",
@@ -164,7 +170,13 @@ function makeDocument() {
       randomUUID() {
         return `test-${Math.random().toString(16).slice(2)}`;
       }
-    }
+    },
+    location: {
+      hash: "",
+      origin: "https://example.com",
+      pathname: "/Pocket-Ledger/"
+    },
+    scrollTo() {}
   };
 
   const context = {
@@ -204,6 +216,11 @@ function makeDocument() {
   const today = new Date().toISOString().slice(0, 10);
 
   assert($("authStatus").textContent.includes("Local demo mode"), "Local fallback auth status did not render.");
+  assert(!$("appShell").classList.contains("hidden"), "Local fallback should open the dashboard.");
+  assert($("onboardingScreen").classList.contains("hidden"), "Onboarding should hide after local fallback opens.");
+
+  $("dashboardHomeButton").listeners.click();
+  assert(document.navButtons[0].classList.contains("active"), "Project title should return to the ledger tab.");
 
   $("transactionKind").value = "income";
   $("transactionAmount").value = "3200";

@@ -7,19 +7,75 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="app-shell">
-      <aside class="sidebar liquid-hero" aria-label="Budget overview">
-        <div class="brand">
-          <div class="brand-mark" aria-hidden="true">
+    <main class="onboarding-screen" id="onboardingScreen">
+      <section class="onboarding-hero">
+        <button class="brand brand-button" id="onboardingHomeButton" type="button" aria-label="Pocket Ledger home">
+          <span class="brand-mark" aria-hidden="true">
             <span></span>
             <span></span>
             <span></span>
-          </div>
-          <div>
-            <p>Pocket Ledger</p>
+          </span>
+          <span>
+            <span>Pocket Ledger</span>
             <strong>Personal finance</strong>
-          </div>
+          </span>
+        </button>
+
+        <div class="onboarding-copy">
+          <p class="eyebrow">Budget tracking with secure sync</p>
+          <h1>Own your money before the month owns you.</h1>
+          <p>Sign in to track paychecks, expenses, debts, and savings goals from one private dashboard.</p>
         </div>
+
+        <div class="onboarding-preview glass-card">
+          <div class="glass-card-top">
+            <span>Monthly control</span>
+            <strong>Cloud Sync</strong>
+          </div>
+          <div class="glass-chip" aria-hidden="true"></div>
+          <p>Net cash flow</p>
+          <h3>$0.00</h3>
+        </div>
+      </section>
+
+      <section class="auth-card" aria-label="Sign in">
+        <div>
+          <p class="eyebrow">Start secure</p>
+          <h2>Sign in or create an account.</h2>
+          <p id="authStatus">Use email or Google to save your budget to Supabase.</p>
+        </div>
+
+        <form class="auth-form" id="authForm">
+          <input id="authEmail" type="email" placeholder="Email address" autocomplete="email" required />
+          <input id="authPassword" type="password" placeholder="Password" autocomplete="current-password" required />
+          <button class="primary-button" id="signInButton" type="submit">Sign In</button>
+          <button class="ghost-light-button" id="signUpButton" type="button">Create Account</button>
+        </form>
+
+        <div class="auth-divider"><span>or</span></div>
+
+        <button class="google-button" id="googleButton" type="button">
+          <span aria-hidden="true">G</span>
+          Continue with Google
+        </button>
+
+        <button class="ghost-light-button hidden" id="demoButton" type="button">Continue in Demo Mode</button>
+      </section>
+    </main>
+
+    <main class="app-shell hidden" id="appShell">
+      <aside class="sidebar liquid-hero" aria-label="Budget overview">
+        <button class="brand brand-button" id="dashboardHomeButton" type="button" aria-label="Pocket Ledger dashboard">
+          <span class="brand-mark" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <span>
+            <span>Pocket Ledger</span>
+            <strong>Personal finance</strong>
+          </span>
+        </button>
 
         <section class="hero-copy">
           <p class="eyebrow">Monthly money command</p>
@@ -51,21 +107,6 @@
       </aside>
 
       <section class="workspace dark-void">
-        <section class="auth-panel" id="authPanel">
-          <div>
-            <p class="eyebrow">Secure sync</p>
-            <h2>Sign in to save your budget.</h2>
-            <p id="authStatus">Connect Supabase to enable account login and cloud database storage.</p>
-          </div>
-          <form class="auth-form" id="authForm">
-            <input id="authEmail" type="email" placeholder="Email address" autocomplete="email" required />
-            <input id="authPassword" type="password" placeholder="Password" autocomplete="current-password" required />
-            <button class="primary-button" id="signInButton" type="submit">Sign In</button>
-            <button class="ghost-light-button" id="signUpButton" type="button">Create Account</button>
-          </form>
-          <button class="ghost-light-button hidden" id="signOutButton" type="button">Sign Out</button>
-        </section>
-
         <header class="topbar">
           <div>
             <p class="eyebrow">Monthly tracker</p>
@@ -75,6 +116,7 @@
             <button class="icon-button" id="prevMonth" type="button" aria-label="Previous month">&lsaquo;</button>
             <button class="month-button" id="currentMonth" type="button">Current Month</button>
             <button class="icon-button" id="nextMonth" type="button" aria-label="Next month">&rsaquo;</button>
+            <button class="ghost-light-button" id="signOutButton" type="button">Sign Out</button>
           </div>
         </header>
 

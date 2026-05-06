@@ -392,6 +392,63 @@ button:active {
   display: none;
 }
 
+.settings-modal {
+  align-items: center;
+  background: rgba(10, 10, 10, 0.72);
+  display: grid;
+  inset: 0;
+  justify-items: center;
+  padding: 18px;
+  position: fixed;
+  z-index: 30;
+}
+
+.settings-card {
+  background: rgba(23, 23, 23, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 36px;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.42);
+  display: grid;
+  gap: 16px;
+  max-width: 620px;
+  padding: 24px;
+  width: min(620px, 100%);
+}
+
+.settings-header {
+  align-items: center;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+}
+
+.settings-header h3 {
+  color: var(--white);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+  margin: 7px 0 0;
+}
+
+.settings-status {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.settings-form {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.settings-form label.wide,
+.settings-form .primary-button {
+  grid-column: 1 / -1;
+}
+
 .auth-panel {
   align-items: center;
   background: rgba(255, 255, 255, 0.07);
@@ -875,6 +932,15 @@ select:focus {
     margin-top: 4px;
   }
 
+  .mobile-menu-top span {
+    color: var(--muted);
+    display: block;
+    font-size: 13px;
+    font-weight: 800;
+    margin-top: 6px;
+    overflow-wrap: anywhere;
+  }
+
   .mobile-menu-links {
     align-content: start;
     display: grid;
@@ -896,6 +962,15 @@ select:focus {
   .mobile-menu-links button.active {
     background: var(--yellow);
     color: var(--onyx);
+  }
+
+  .mobile-menu-actions {
+    display: grid;
+    gap: 10px;
+  }
+
+  .desktop-sign-out {
+    display: none;
   }
 
   .summary-grid {
@@ -1039,6 +1114,20 @@ select:focus {
   .auth-card > * {
     min-width: 0;
     max-width: calc(100vw - 32px);
+  }
+
+  .settings-card {
+    border-radius: 28px;
+    padding: 18px;
+  }
+
+  .settings-form {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-form label.wide,
+  .settings-form .primary-button {
+    grid-column: auto;
   }
 
   .liquid-hero,

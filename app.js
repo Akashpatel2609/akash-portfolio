@@ -53,6 +53,17 @@ const selectors = {
   mobileMenuClose: document.querySelector("#mobileMenuClose"),
   mobileMenuOverlay: document.querySelector("#mobileMenuOverlay"),
   mobileExportButton: document.querySelector("#mobileExportButton"),
+  mobileSettingsButton: document.querySelector("#mobileSettingsButton"),
+  mobileSignOutButton: document.querySelector("#mobileSignOutButton"),
+  mobileAccountName: document.querySelector("#mobileAccountName"),
+  desktopSettingsButton: document.querySelector("#desktopSettingsButton"),
+  settingsModal: document.querySelector("#settingsModal"),
+  settingsCloseButton: document.querySelector("#settingsCloseButton"),
+  settingsForm: document.querySelector("#settingsForm"),
+  settingsEmail: document.querySelector("#settingsEmail"),
+  settingsName: document.querySelector("#settingsName"),
+  settingsPassword: document.querySelector("#settingsPassword"),
+  settingsStatus: document.querySelector("#settingsStatus"),
   netTotal: document.querySelector("#netTotal"),
   glassNetTotal: document.querySelector("#glassNetTotal"),
   monthLabel: document.querySelector("#monthLabel"),
@@ -120,6 +131,28 @@ function openMobileMenu() {
 
 function closeMobileMenu() {
   selectors.mobileMenuOverlay.classList.add("hidden");
+}
+
+function userDisplayName() {
+  return state.session?.user?.user_metadata?.full_name || state.session?.user?.email || "Demo user";
+}
+
+function renderSettings() {
+  selectors.settingsEmail.value = state.session?.user?.email || "Local demo mode";
+  selectors.settingsName.value = state.session?.user?.user_metadata?.full_name || "";
+  selectors.settingsPassword.value = "";
+  selectors.settingsStatus.textContent = state.session
+    ? `Signed in as ${userDisplayName()}.`
+    : "Settings are available after signing in.";
+}
+
+function openSettings() {
+  renderSettings();
+  selectors.settingsModal.classList.remove("hidden");
+}
+
+function closeSettings() {
+  selectors.settingsModal.classList.add("hidden");
 }
 
 function loadLocal() {
@@ -249,6 +282,8 @@ function renderAuth() {
     selectors.authForm.classList.add("hidden");
     selectors.demoButton.classList.remove("hidden");
     selectors.signOutButton.classList.add("hidden");
+    selectors.mobileSignOutButton.classList.add("hidden");
+    selectors.mobileAccountName.textContent = "Local demo";
     setStatus(state.authError || "Local demo mode is available because Supabase is not configured.");
     return;
   }
@@ -257,11 +292,15 @@ function renderAuth() {
     selectors.authForm.classList.add("hidden");
     selectors.demoButton.classList.add("hidden");
     selectors.signOutButton.classList.remove("hidden");
-    setStatus(`Signed in as ${state.session.user.email}. Your data is saved in Supabase.`);
+    selectors.mobileSignOutButton.classList.remove("hidden");
+    selectors.mobileAccountName.textContent = userDisplayName();
+    setStatus(`Signed in as ${userDisplayName()}. Your data is saved in Supabase.`);
   } else {
     selectors.authForm.classList.remove("hidden");
     selectors.demoButton.classList.add("hidden");
     selectors.signOutButton.classList.add("hidden");
+    selectors.mobileSignOutButton.classList.add("hidden");
+    selectors.mobileAccountName.textContent = "Account";
     setStatus(state.authError || "Use email and password to save your budget to Supabase.");
   }
 }
@@ -573,9 +612,51 @@ async function signOut() {
   state.session = null;
   state.demoMode = false;
   state.data = { transactions: [], debts: [], goals: [] };
+  closeSettings();
+  closeMobileMenu();
   loadLocal();
   render();
   showOnboarding();
+}
+
+async function saveSettings(event) {
+  event.preventDefault();
+
+  if (!supabaseClient || !state.session) {
+    selectors.settingsStatus.textContent = "Sign in to update account settings.";
+    return;
+  }
+
+  const fullName = selectors.settingsName.value.trim();
+  const password = selectors.settingsPassword.value;
+  const update = {
+    data: {
+      full_name: fullName
+    }
+  };
+
+  if (password) {
+    if (password.length < 6) {
+      selectors.settingsStatus.textContent = "Password must be at least 6 characters.";
+      return;
+    }
+    update.password = password;
+  }
+
+  const { data, error } = await supabaseClient.auth.updateUser(update);
+
+  if (error) {
+    selectors.settingsStatus.textContent = `Update failed: ${error.message}`;
+    return;
+  }
+
+  state.session = {
+    ...state.session,
+    user: data.user
+  };
+  selectors.settingsPassword.value = "";
+  selectors.settingsStatus.textContent = "Settings saved.";
+  render();
 }
 
 function continueDemo() {
@@ -609,6 +690,19 @@ document.querySelector("#exportButton").addEventListener("click", exportCsv);
 selectors.mobileExportButton.addEventListener("click", () => {
   exportCsv();
   closeMobileMenu();
+});
+selectors.desktopSettingsButton.addEventListener("click", openSettings);
+selectors.mobileSettingsButton.addEventListener("click", () => {
+  openSettings();
+  closeMobileMenu();
+});
+selectors.mobileSignOutButton.addEventListener("click", signOut);
+selectors.settingsCloseButton.addEventListener("click", closeSettings);
+selectors.settingsForm.addEventListener("submit", saveSettings);
+selectors.settingsModal.addEventListener("click", (event) => {
+  if (event.target === selectors.settingsModal) {
+    closeSettings();
+  }
 });
 selectors.authForm.addEventListener("submit", signIn);
 selectors.signUpButton.addEventListener("click", signUp);

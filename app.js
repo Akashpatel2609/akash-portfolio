@@ -11,6 +11,7 @@ const state = {
   month: new Date().toISOString().slice(0, 7),
   session: null,
   demoMode: false,
+  authError: "",
   data: {
     transactions: [],
     debts: [],
@@ -75,6 +76,25 @@ function canUseDashboard() {
 
 function setStatus(message) {
   selectors.authStatus.textContent = message;
+}
+
+function getAppUrl() {
+  let pathname = window.location.pathname || "/";
+  pathname = pathname.replace(/index\.html$/, "");
+  if (!pathname.endsWith("/")) {
+    pathname = `${pathname}/`;
+  }
+  return `${window.location.origin}${pathname}`;
+}
+
+function readAuthErrorFromUrl() {
+  const rawParams = window.location.hash || window.location.search || "";
+  if (!rawParams.includes("error")) {
+    return "";
+  }
+
+  const params = new URLSearchParams(rawParams.replace(/^[#?]/, ""));
+  return params.get("error_description") || params.get("error") || "";
 }
 
 function showOnboarding() {
@@ -218,7 +238,7 @@ function renderAuth() {
     selectors.googleButton.classList.add("hidden");
     selectors.demoButton.classList.remove("hidden");
     selectors.signOutButton.classList.add("hidden");
-    setStatus("Local demo mode is available because Supabase is not configured.");
+    setStatus(state.authError || "Local demo mode is available because Supabase is not configured.");
     return;
   }
 
@@ -233,7 +253,7 @@ function renderAuth() {
     selectors.googleButton.classList.remove("hidden");
     selectors.demoButton.classList.add("hidden");
     selectors.signOutButton.classList.add("hidden");
-    setStatus("Use email or Google to save your budget to Supabase.");
+    setStatus(state.authError || "Use email or Google to save your budget to Supabase.");
   }
 }
 
@@ -537,11 +557,17 @@ async function signUp() {
 async function signInWithGoogle() {
   if (!supabaseClient) return;
 
-  const redirectTo = `${window.location.origin}${window.location.pathname}`;
+  state.authError = "";
+  setStatus("Opening Google sign in...");
+  const redirectTo = getAppUrl();
   const { error } = await supabaseClient.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo
+      redirectTo,
+      scopes: "email profile",
+      queryParams: {
+        prompt: "select_account"
+      }
     }
   });
 
@@ -637,6 +663,7 @@ document.addEventListener("click", async (event) => {
 
 async function init() {
   loadLocal();
+  state.authError = readAuthErrorFromUrl();
   selectors.transactionDate.value = new Date().toISOString().slice(0, 10);
 
   if (supabaseClient) {

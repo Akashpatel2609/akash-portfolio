@@ -1,37 +1,70 @@
 # Pocket Ledger
 
-Pocket Ledger is a local-first personal budget website for monthly paycheck deposits, expenses, savings, debts, and cash-flow tracking.
+Pocket Ledger is a personal finance tracker for logging monthly income, expenses, savings goals, debt balances, and debt payments. It is built as a static website with Supabase authentication and database storage, so it can run live for free using GitHub Pages and Supabase Free.
 
-## Open The Website
+## Live Website
 
-Double-click `Open-Pocket-Ledger-Website.bat` to open the website in your browser.
+[Open Pocket Ledger](https://akashpatel2609.github.io/Pocket-Ledger/)
 
-You can also double-click `index.html` directly.
+## Repository
 
-Your data is saved in that browser using local storage.
+[github.com/Akashpatel2609/Pocket-Ledger](https://github.com/Akashpatel2609/Pocket-Ledger)
 
-## Free Live Setup With Auth And Database
+## Features
 
-This project is designed to run free with:
+- Email/password sign in with Supabase Auth
+- Cloud database storage with Supabase Postgres
+- Row-level security so users can only access their own records
+- Monthly income, expense, savings, debt payment, and net cash-flow summaries
+- Transaction ledger for paychecks, spending, savings, and debt payments
+- Debt tracker for balances and minimum payments
+- Savings goals with progress bars
+- CSV export for spreadsheet backup
+- Local demo mode when Supabase keys are not configured
+- Responsive desktop and mobile design
 
-- GitHub Pages for static hosting
-- Supabase Free for email/password auth and Postgres database
+## Tech Stack
 
-### 1. Create Supabase Project
+- HTML
+- CSS
+- JavaScript
+- Supabase Auth
+- Supabase Postgres
+- GitHub Pages
 
-1. Go to https://supabase.com
-2. Create a free project.
-3. Open **SQL Editor**.
-4. Paste and run everything from `database.sql`.
+## Project Structure
 
-### 2. Add Supabase Keys
+```text
+Pocket-Ledger/
+├── index.html          # Main website markup
+├── styles.css          # Hyper-saturated fintech UI styling
+├── app.js              # App logic, auth, database sync, local fallback
+├── config.js           # Supabase URL and anon public key
+├── database.sql        # Supabase tables, policies, and row-level security
+├── tests/
+│   └── qa-runner.js    # Local functionality test harness
+└── README.md
+```
 
-In Supabase, go to **Project Settings > API** and copy:
+## Database Setup
 
-- Project URL
-- anon public key
+Pocket Ledger uses three Supabase tables:
 
-Paste them into `config.js`:
+- `transactions`
+- `debts`
+- `goals`
+
+To set up the database:
+
+1. Open your Supabase project.
+2. Go to **SQL Editor**.
+3. Run the SQL from [`database.sql`](database.sql).
+
+The SQL enables row-level security and creates policies that restrict each user to their own data.
+
+## Supabase Config
+
+Add your Supabase project settings to [`config.js`](config.js):
 
 ```js
 window.POCKET_LEDGER_CONFIG = {
@@ -40,78 +73,45 @@ window.POCKET_LEDGER_CONFIG = {
 };
 ```
 
-The anon key is safe to use in a browser app because `database.sql` enables row-level security. Never paste the service role key into this project.
+Only use the Supabase **anon public key** in this file. Do not use the service role key in a browser app.
 
-### 3. Enable Auth
+## Run Locally
 
-In Supabase, go to **Authentication > Providers > Email** and keep email/password enabled.
-
-For easiest testing, you can disable email confirmation in **Authentication > Sign In / Providers > Email**. If you keep confirmation enabled, users must confirm their email before signing in.
-
-### 4. Make It Live On GitHub Pages
-
-1. Commit and push the updated files.
-2. In GitHub, open the repo settings.
-3. Go to **Pages**.
-4. Source: **Deploy from a branch**.
-5. Branch: `main`.
-6. Folder: `/root`.
-7. Save.
-
-Your live URL will look like:
+Open [`index.html`](index.html) in a browser, or double-click:
 
 ```text
-https://akashpatel2609.github.io/Pocket-Ledger/
+Open-Pocket-Ledger-Website.bat
 ```
 
-## What It Tracks
+No build step is required.
 
-- Paycheck and other income deposits
-- Expenses by category
-- Savings contributions
-- Debt payments and balances
-- Monthly income, spending, savings, debt payments, and net cash flow
-- CSV export for moving data into a spreadsheet
+## Test
 
-## Easiest iPhone Setup
-
-1. Install **Expo Go** from the iOS App Store.
-2. Double-click `Start-Pocket-Ledger.bat`.
-3. Scan the QR code with Expo Go.
-
-Keep the computer window open while you use the app.
-
-## Manual iPhone Setup
-
-1. Install the Expo Go app from the iOS App Store.
-2. Install project dependencies:
-
-   ```bash
-   npm install
-   ```
-
-3. Start the app:
-
-   ```bash
-   npm start
-   ```
-
-4. Scan the QR code with your iPhone camera or Expo Go.
-
-For a production iOS app later, this project can be built with Expo Application Services:
+Run the local QA harness:
 
 ```bash
-npx eas build --platform ios
+node tests/qa-runner.js
 ```
 
-## Useful Commands
+The test checks local fallback mode, forms, totals, tab switching, delete actions, CSV export, and local persistence.
 
-```bash
-npm start
-npm run typecheck
-npm run web
-```
+## Deploy
 
-## Data Storage
+The app is deployed with GitHub Pages.
 
-The app stores data locally on the device using AsyncStorage. This first version does not sync to a cloud account, so export CSV regularly if the data matters.
+Recommended Pages settings:
+
+- Source: **Deploy from a branch**
+- Branch: `main`
+- Folder: `/root`
+
+Live URL:
+
+[https://akashpatel2609.github.io/Pocket-Ledger/](https://akashpatel2609.github.io/Pocket-Ledger/)
+
+## Cost
+
+This project can run free using:
+
+- GitHub Pages free static hosting
+- Supabase Free auth and database tier

@@ -13,7 +13,6 @@ Pocket Ledger is a personal finance tracker for logging monthly income, expenses
 ## Features
 
 - Email/password sign in with Supabase Auth
-- Google sign-in interface using Supabase OAuth
 - Onboarding screen before the main dashboard
 - Cloud database storage with Supabase Postgres
 - Row-level security so users can only access their own records
@@ -82,42 +81,6 @@ window.POCKET_LEDGER_CONFIG = {
 ```
 
 Only use the Supabase **anon public key** in this file. Do not use the service role key in a browser app.
-
-## Google Auth Setup
-
-The app includes a **Continue with Google** button. To make it work, enable Google as an OAuth provider in Supabase:
-
-1. Open Supabase.
-2. Go to **Authentication > URL Configuration**.
-3. Set **Site URL** to:
-
-```text
-https://akashpatel2609.github.io/Pocket-Ledger/
-```
-
-4. Add the same URL to **Redirect URLs**:
-
-```text
-https://akashpatel2609.github.io/Pocket-Ledger/
-```
-
-5. Go to **Authentication > Providers**.
-6. Enable **Google**.
-7. Add your Google OAuth client ID and client secret.
-
-In Google Cloud Console, your OAuth client should be a **Web application**. Add this authorized JavaScript origin:
-
-```text
-https://akashpatel2609.github.io
-```
-
-Add the Supabase callback URL shown on the Supabase Google provider page as an authorized redirect URI. It usually looks like:
-
-```text
-https://YOUR-PROJECT.supabase.co/auth/v1/callback
-```
-
-If Google is not configured in Supabase, email/password auth will still work.
 
 ## Run Locally
 

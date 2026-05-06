@@ -45,7 +45,6 @@ const selectors = {
   authStatus: document.querySelector("#authStatus"),
   signUpButton: document.querySelector("#signUpButton"),
   signOutButton: document.querySelector("#signOutButton"),
-  googleButton: document.querySelector("#googleButton"),
   demoButton: document.querySelector("#demoButton"),
   onboardingHomeButton: document.querySelector("#onboardingHomeButton"),
   dashboardHomeButton: document.querySelector("#dashboardHomeButton"),
@@ -235,7 +234,6 @@ async function loadCloudData() {
 function renderAuth() {
   if (!supabaseClient) {
     selectors.authForm.classList.add("hidden");
-    selectors.googleButton.classList.add("hidden");
     selectors.demoButton.classList.remove("hidden");
     selectors.signOutButton.classList.add("hidden");
     setStatus(state.authError || "Local demo mode is available because Supabase is not configured.");
@@ -244,16 +242,14 @@ function renderAuth() {
 
   if (state.session) {
     selectors.authForm.classList.add("hidden");
-    selectors.googleButton.classList.add("hidden");
     selectors.demoButton.classList.add("hidden");
     selectors.signOutButton.classList.remove("hidden");
     setStatus(`Signed in as ${state.session.user.email}. Your data is saved in Supabase.`);
   } else {
     selectors.authForm.classList.remove("hidden");
-    selectors.googleButton.classList.remove("hidden");
     selectors.demoButton.classList.add("hidden");
     selectors.signOutButton.classList.add("hidden");
-    setStatus(state.authError || "Use email or Google to save your budget to Supabase.");
+    setStatus(state.authError || "Use email and password to save your budget to Supabase.");
   }
 }
 
@@ -554,28 +550,6 @@ async function signUp() {
   render();
 }
 
-async function signInWithGoogle() {
-  if (!supabaseClient) return;
-
-  state.authError = "";
-  setStatus("Opening Google sign in...");
-  const redirectTo = getAppUrl();
-  const { error } = await supabaseClient.auth.signInWithOAuth({
-    provider: "google",
-    options: {
-      redirectTo,
-      scopes: "email profile",
-      queryParams: {
-        prompt: "select_account"
-      }
-    }
-  });
-
-  if (error) {
-    setStatus(`Google sign in failed: ${error.message}`);
-  }
-}
-
 async function signOut() {
   if (!supabaseClient) return;
   await supabaseClient.auth.signOut();
@@ -618,7 +592,6 @@ document.querySelector("#exportButton").addEventListener("click", exportCsv);
 selectors.authForm.addEventListener("submit", signIn);
 selectors.signUpButton.addEventListener("click", signUp);
 selectors.signOutButton.addEventListener("click", signOut);
-selectors.googleButton.addEventListener("click", signInWithGoogle);
 selectors.demoButton.addEventListener("click", continueDemo);
 selectors.onboardingHomeButton.addEventListener("click", () => {
   if (canUseDashboard()) {

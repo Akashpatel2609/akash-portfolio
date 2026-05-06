@@ -71,7 +71,6 @@ function makeDocument() {
     "authStatus",
     "signUpButton",
     "signOutButton",
-    "googleButton",
     "demoButton",
     "onboardingHomeButton",
     "dashboardHomeButton",

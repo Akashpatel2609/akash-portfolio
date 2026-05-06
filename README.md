@@ -10,6 +10,60 @@ You can also double-click `index.html` directly.
 
 Your data is saved in that browser using local storage.
 
+## Free Live Setup With Auth And Database
+
+This project is designed to run free with:
+
+- GitHub Pages for static hosting
+- Supabase Free for email/password auth and Postgres database
+
+### 1. Create Supabase Project
+
+1. Go to https://supabase.com
+2. Create a free project.
+3. Open **SQL Editor**.
+4. Paste and run everything from `database.sql`.
+
+### 2. Add Supabase Keys
+
+In Supabase, go to **Project Settings > API** and copy:
+
+- Project URL
+- anon public key
+
+Paste them into `config.js`:
+
+```js
+window.POCKET_LEDGER_CONFIG = {
+  supabaseUrl: "https://YOUR-PROJECT.supabase.co",
+  supabaseAnonKey: "YOUR-ANON-PUBLIC-KEY"
+};
+```
+
+The anon key is safe to use in a browser app because `database.sql` enables row-level security. Never paste the service role key into this project.
+
+### 3. Enable Auth
+
+In Supabase, go to **Authentication > Providers > Email** and keep email/password enabled.
+
+For easiest testing, you can disable email confirmation in **Authentication > Sign In / Providers > Email**. If you keep confirmation enabled, users must confirm their email before signing in.
+
+### 4. Make It Live On GitHub Pages
+
+1. Commit and push the updated files.
+2. In GitHub, open the repo settings.
+3. Go to **Pages**.
+4. Source: **Deploy from a branch**.
+5. Branch: `main`.
+6. Folder: `/root`.
+7. Save.
+
+Your live URL will look like:
+
+```text
+https://akashpatel2609.github.io/Pocket-Ledger/
+```
+
 ## What It Tracks
 
 - Paycheck and other income deposits

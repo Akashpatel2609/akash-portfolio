@@ -51,6 +51,21 @@
       </aside>
 
       <section class="workspace dark-void">
+        <section class="auth-panel" id="authPanel">
+          <div>
+            <p class="eyebrow">Secure sync</p>
+            <h2>Sign in to save your budget.</h2>
+            <p id="authStatus">Connect Supabase to enable account login and cloud database storage.</p>
+          </div>
+          <form class="auth-form" id="authForm">
+            <input id="authEmail" type="email" placeholder="Email address" autocomplete="email" required />
+            <input id="authPassword" type="password" placeholder="Password" autocomplete="current-password" required />
+            <button class="primary-button" id="signInButton" type="submit">Sign In</button>
+            <button class="ghost-light-button" id="signUpButton" type="button">Create Account</button>
+          </form>
+          <button class="ghost-light-button hidden" id="signOutButton" type="button">Sign Out</button>
+        </section>
+
         <header class="topbar">
           <div>
             <p class="eyebrow">Monthly tracker</p>
@@ -199,6 +214,8 @@
       </section>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

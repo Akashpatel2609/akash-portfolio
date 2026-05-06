@@ -1,7 +1,15 @@
-const STORAGE_KEY = "pocket-ledger-web:v1";
+const STORAGE_KEY = "pocket-ledger-web:v2";
+
+const config = window.POCKET_LEDGER_CONFIG || {};
+const hasSupabaseConfig = Boolean(config.supabaseUrl && config.supabaseAnonKey);
+const supabaseClient =
+  hasSupabaseConfig && window.supabase
+    ? window.supabase.createClient(config.supabaseUrl, config.supabaseAnonKey)
+    : null;
 
 const state = {
   month: new Date().toISOString().slice(0, 7),
+  session: null,
   data: {
     transactions: [],
     debts: [],
@@ -27,6 +35,13 @@ const monthName = new Intl.DateTimeFormat("en-US", {
 });
 
 const selectors = {
+  authPanel: document.querySelector("#authPanel"),
+  authForm: document.querySelector("#authForm"),
+  authEmail: document.querySelector("#authEmail"),
+  authPassword: document.querySelector("#authPassword"),
+  authStatus: document.querySelector("#authStatus"),
+  signUpButton: document.querySelector("#signUpButton"),
+  signOutButton: document.querySelector("#signOutButton"),
   netTotal: document.querySelector("#netTotal"),
   glassNetTotal: document.querySelector("#glassNetTotal"),
   monthLabel: document.querySelector("#monthLabel"),
@@ -44,7 +59,15 @@ const selectors = {
   transactionDate: document.querySelector("#transactionDate")
 };
 
-function load() {
+function isCloudMode() {
+  return Boolean(supabaseClient && state.session);
+}
+
+function setStatus(message) {
+  selectors.authStatus.textContent = message;
+}
+
+function loadLocal() {
   const saved = localStorage.getItem(STORAGE_KEY);
   if (!saved) return;
 
@@ -55,11 +78,20 @@ function load() {
   }
 }
 
-function save() {
+function saveLocal() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data));
 }
 
+function save() {
+  if (!isCloudMode()) {
+    saveLocal();
+  }
+}
+
 function id() {
+  if (window.crypto && window.crypto.randomUUID) {
+    return window.crypto.randomUUID();
+  }
   return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
 
@@ -105,6 +137,77 @@ function escapeHtml(value) {
     .replace(/'/g, "&#039;");
 }
 
+function normalizeTransaction(row) {
+  return {
+    id: row.id,
+    kind: row.kind,
+    amount: Number(row.amount),
+    category: row.category,
+    note: row.note || "",
+    date: row.date
+  };
+}
+
+function normalizeDebt(row) {
+  return {
+    id: row.id,
+    name: row.name,
+    balance: Number(row.balance),
+    minimumPayment: Number(row.minimum_payment || 0)
+  };
+}
+
+function normalizeGoal(row) {
+  return {
+    id: row.id,
+    name: row.name,
+    target: Number(row.target),
+    saved: Number(row.saved || 0)
+  };
+}
+
+async function loadCloudData() {
+  if (!isCloudMode()) return;
+
+  const [transactions, debts, goals] = await Promise.all([
+    supabaseClient.from("transactions").select("*").order("date", { ascending: false }),
+    supabaseClient.from("debts").select("*").order("created_at", { ascending: false }),
+    supabaseClient.from("goals").select("*").order("created_at", { ascending: false })
+  ]);
+
+  const error = transactions.error || debts.error || goals.error;
+  if (error) {
+    setStatus(`Database error: ${error.message}`);
+    return;
+  }
+
+  state.data = {
+    transactions: transactions.data.map(normalizeTransaction),
+    debts: debts.data.map(normalizeDebt),
+    goals: goals.data.map(normalizeGoal)
+  };
+  render();
+}
+
+function renderAuth() {
+  if (!supabaseClient) {
+    selectors.authForm.classList.add("hidden");
+    selectors.signOutButton.classList.add("hidden");
+    setStatus("Local demo mode. Add Supabase URL and anon key in config.js to enable login and database sync.");
+    return;
+  }
+
+  if (state.session) {
+    selectors.authForm.classList.add("hidden");
+    selectors.signOutButton.classList.remove("hidden");
+    setStatus(`Signed in as ${state.session.user.email}. Your data is saved in Supabase.`);
+  } else {
+    selectors.authForm.classList.remove("hidden");
+    selectors.signOutButton.classList.add("hidden");
+    setStatus("Sign in or create a free account to save your budget to the cloud.");
+  }
+}
+
 function render() {
   const monthTotals = totals();
   const net = monthTotals.income - monthTotals.expense - monthTotals.savings - monthTotals.debt;
@@ -127,6 +230,7 @@ function render() {
   selectors.debtBalanceTotal.textContent = money.format(debtBalance);
   selectors.goalBalanceTotal.textContent = `${money.format(saved)} / ${money.format(target)}`;
 
+  renderAuth();
   renderTransactions();
   renderDebts();
   renderGoals();
@@ -215,7 +319,7 @@ function setTab(tabName) {
   });
 }
 
-function addTransaction(event) {
+async function addTransaction(event) {
   event.preventDefault();
   const amount = parseMoney(document.querySelector("#transactionAmount").value);
   const category = document.querySelector("#transactionCategory").value.trim();
@@ -223,14 +327,38 @@ function addTransaction(event) {
 
   if (!amount || !category || !date) return;
 
-  state.data.transactions.unshift({
+  const transaction = {
     id: id(),
     kind: document.querySelector("#transactionKind").value,
     amount,
     category,
     note: document.querySelector("#transactionNote").value.trim(),
     date
-  });
+  };
+
+  if (isCloudMode()) {
+    const { data, error } = await supabaseClient
+      .from("transactions")
+      .insert({
+        user_id: state.session.user.id,
+        kind: transaction.kind,
+        amount: transaction.amount,
+        category: transaction.category,
+        note: transaction.note,
+        date: transaction.date
+      })
+      .select()
+      .single();
+
+    if (error) {
+      setStatus(`Save failed: ${error.message}`);
+      return;
+    }
+
+    state.data.transactions.unshift(normalizeTransaction(data));
+  } else {
+    state.data.transactions.unshift(transaction);
+  }
 
   event.target.reset();
   selectors.transactionDate.value = new Date().toISOString().slice(0, 10);
@@ -238,36 +366,80 @@ function addTransaction(event) {
   render();
 }
 
-function addDebt(event) {
+async function addDebt(event) {
   event.preventDefault();
   const balance = parseMoney(document.querySelector("#debtBalance").value);
   const name = document.querySelector("#debtName").value.trim();
   if (!balance || !name) return;
 
-  state.data.debts.push({
+  const debt = {
     id: id(),
     name,
     balance,
     minimumPayment: parseMoney(document.querySelector("#debtMinimum").value) || 0
-  });
+  };
+
+  if (isCloudMode()) {
+    const { data, error } = await supabaseClient
+      .from("debts")
+      .insert({
+        user_id: state.session.user.id,
+        name: debt.name,
+        balance: debt.balance,
+        minimum_payment: debt.minimumPayment
+      })
+      .select()
+      .single();
+
+    if (error) {
+      setStatus(`Save failed: ${error.message}`);
+      return;
+    }
+
+    state.data.debts.unshift(normalizeDebt(data));
+  } else {
+    state.data.debts.push(debt);
+  }
 
   event.target.reset();
   save();
   render();
 }
 
-function addGoal(event) {
+async function addGoal(event) {
   event.preventDefault();
   const target = parseMoney(document.querySelector("#goalTarget").value);
   const name = document.querySelector("#goalName").value.trim();
   if (!target || !name) return;
 
-  state.data.goals.push({
+  const goal = {
     id: id(),
     name,
     target,
     saved: parseMoney(document.querySelector("#goalSaved").value) || 0
-  });
+  };
+
+  if (isCloudMode()) {
+    const { data, error } = await supabaseClient
+      .from("goals")
+      .insert({
+        user_id: state.session.user.id,
+        name: goal.name,
+        target: goal.target,
+        saved: goal.saved
+      })
+      .select()
+      .single();
+
+    if (error) {
+      setStatus(`Save failed: ${error.message}`);
+      return;
+    }
+
+    state.data.goals.unshift(normalizeGoal(data));
+  } else {
+    state.data.goals.push(goal);
+  }
 
   event.target.reset();
   save();
@@ -289,6 +461,66 @@ function exportCsv() {
   URL.revokeObjectURL(link.href);
 }
 
+async function signIn(event) {
+  event.preventDefault();
+  if (!supabaseClient) return;
+
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email: selectors.authEmail.value.trim(),
+    password: selectors.authPassword.value
+  });
+
+  if (error) {
+    setStatus(`Sign in failed: ${error.message}`);
+    return;
+  }
+
+  state.session = data.session;
+  await loadCloudData();
+}
+
+async function signUp() {
+  if (!supabaseClient) return;
+
+  const { data, error } = await supabaseClient.auth.signUp({
+    email: selectors.authEmail.value.trim(),
+    password: selectors.authPassword.value
+  });
+
+  if (error) {
+    setStatus(`Account creation failed: ${error.message}`);
+    return;
+  }
+
+  state.session = data.session;
+  if (state.session) {
+    await loadCloudData();
+  } else {
+    setStatus("Account created. Check your email if Supabase asks you to confirm it, then sign in.");
+  }
+  render();
+}
+
+async function signOut() {
+  if (!supabaseClient) return;
+  await supabaseClient.auth.signOut();
+  state.session = null;
+  state.data = { transactions: [], debts: [], goals: [] };
+  loadLocal();
+  render();
+}
+
+async function deleteRow(table, idValue) {
+  if (isCloudMode()) {
+    const { error } = await supabaseClient.from(table).delete().eq("id", idValue);
+    if (error) {
+      setStatus(`Delete failed: ${error.message}`);
+      return false;
+    }
+  }
+  return true;
+}
+
 document.querySelector("#transactionForm").addEventListener("submit", addTransaction);
 document.querySelector("#debtForm").addEventListener("submit", addDebt);
 document.querySelector("#goalForm").addEventListener("submit", addGoal);
@@ -299,6 +531,9 @@ document.querySelector("#currentMonth").addEventListener("click", () => {
   render();
 });
 document.querySelector("#exportButton").addEventListener("click", exportCsv);
+selectors.authForm.addEventListener("submit", signIn);
+selectors.signUpButton.addEventListener("click", signUp);
+selectors.signOutButton.addEventListener("click", signOut);
 
 document.querySelector(".nav-tabs").addEventListener("click", (event) => {
   if (event.target.matches("button[data-tab]")) {
@@ -306,20 +541,20 @@ document.querySelector(".nav-tabs").addEventListener("click", (event) => {
   }
 });
 
-document.addEventListener("click", (event) => {
+document.addEventListener("click", async (event) => {
   const transactionId = event.target.dataset.deleteTransaction;
   const debtId = event.target.dataset.deleteDebt;
   const goalId = event.target.dataset.deleteGoal;
 
-  if (transactionId) {
+  if (transactionId && (await deleteRow("transactions", transactionId))) {
     state.data.transactions = state.data.transactions.filter((item) => item.id !== transactionId);
   }
 
-  if (debtId) {
+  if (debtId && (await deleteRow("debts", debtId))) {
     state.data.debts = state.data.debts.filter((item) => item.id !== debtId);
   }
 
-  if (goalId) {
+  if (goalId && (await deleteRow("goals", goalId))) {
     state.data.goals = state.data.goals.filter((item) => item.id !== goalId);
   }
 
@@ -329,6 +564,31 @@ document.addEventListener("click", (event) => {
   }
 });
 
-load();
-selectors.transactionDate.value = new Date().toISOString().slice(0, 10);
-render();
+async function init() {
+  loadLocal();
+  selectors.transactionDate.value = new Date().toISOString().slice(0, 10);
+
+  if (supabaseClient) {
+    const { data } = await supabaseClient.auth.getSession();
+    state.session = data.session;
+    supabaseClient.auth.onAuthStateChange(async (_event, session) => {
+      state.session = session;
+      if (session) {
+        await loadCloudData();
+      } else {
+        state.data = { transactions: [], debts: [], goals: [] };
+        loadLocal();
+        render();
+      }
+    });
+
+    if (state.session) {
+      await loadCloudData();
+      return;
+    }
+  }
+
+  render();
+}
+
+void init();

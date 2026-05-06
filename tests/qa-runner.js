@@ -7,6 +7,14 @@ class ClassList {
     this.values = new Set(initial.split(/\s+/).filter(Boolean));
   }
 
+  add(name) {
+    this.values.add(name);
+  }
+
+  remove(name) {
+    this.values.delete(name);
+  }
+
   toggle(name, force) {
     if (force) {
       this.values.add(name);
@@ -54,6 +62,13 @@ function assert(condition, message) {
 
 function makeDocument() {
   const ids = [
+    "authPanel",
+    "authForm",
+    "authEmail",
+    "authPassword",
+    "authStatus",
+    "signUpButton",
+    "signOutButton",
     "netTotal",
     "glassNetTotal",
     "monthLabel",
@@ -136,93 +151,109 @@ function makeDocument() {
   };
 }
 
-const document = makeDocument();
-const storage = new Map();
-let objectUrlRevoked = false;
-
-const context = {
-  Blob,
-  Date,
-  Intl,
-  Math,
-  Number,
-  String,
-  URL: {
-    createObjectURL() {
-      return "blob:test";
+(async () => {
+  const document = makeDocument();
+  const storage = new Map();
+  let objectUrlRevoked = false;
+  const windowObject = {
+    POCKET_LEDGER_CONFIG: {
+      supabaseUrl: "",
+      supabaseAnonKey: ""
     },
-    revokeObjectURL(url) {
-      objectUrlRevoked = url === "blob:test";
+    crypto: {
+      randomUUID() {
+        return `test-${Math.random().toString(16).slice(2)}`;
+      }
     }
-  },
-  document,
-  localStorage: {
-    getItem(key) {
-      return storage.get(key) ?? null;
+  };
+
+  const context = {
+    Blob,
+    Date,
+    Intl,
+    Math,
+    Number,
+    String,
+    URL: {
+      createObjectURL() {
+        return "blob:test";
+      },
+      revokeObjectURL(url) {
+        objectUrlRevoked = url === "blob:test";
+      }
     },
-    setItem(key, value) {
-      storage.set(key, value);
+    document,
+    localStorage: {
+      getItem(key) {
+        return storage.get(key) ?? null;
+      },
+      setItem(key, value) {
+        storage.set(key, value);
+      },
+      removeItem(key) {
+        storage.delete(key);
+      }
     },
-    removeItem(key) {
-      storage.delete(key);
-    }
-  }
-};
+    window: windowObject
+  };
 
-const appPath = path.join(__dirname, "..", "app.js");
-vm.runInNewContext(fs.readFileSync(appPath, "utf8"), context, { filename: appPath });
+  const appPath = path.join(__dirname, "..", "app.js");
+  vm.runInNewContext(fs.readFileSync(appPath, "utf8"), context, { filename: appPath });
 
-const $ = (id) => document.elements[id];
-const today = new Date().toISOString().slice(0, 10);
+  const $ = (id) => document.elements[id];
+  const today = new Date().toISOString().slice(0, 10);
 
-$("transactionKind").value = "income";
-$("transactionAmount").value = "3200";
-$("transactionCategory").value = "Paycheck";
-$("transactionDate").value = today;
-$("transactionNote").value = "Main job";
-$("transactionForm").listeners.submit({ preventDefault() {}, target: $("transactionForm") });
+  assert($("authStatus").textContent.includes("Local demo mode"), "Local fallback auth status did not render.");
 
-$("transactionKind").value = "expense";
-$("transactionAmount").value = "125.50";
-$("transactionCategory").value = "Groceries";
-$("transactionDate").value = today;
-$("transactionNote").value = "";
-$("transactionForm").listeners.submit({ preventDefault() {}, target: $("transactionForm") });
+  $("transactionKind").value = "income";
+  $("transactionAmount").value = "3200";
+  $("transactionCategory").value = "Paycheck";
+  $("transactionDate").value = today;
+  $("transactionNote").value = "Main job";
+  await $("transactionForm").listeners.submit({ preventDefault() {}, target: $("transactionForm") });
 
-$("debtName").value = "Credit Card";
-$("debtBalance").value = "900";
-$("debtMinimum").value = "45";
-$("debtForm").listeners.submit({ preventDefault() {}, target: $("debtForm") });
+  $("transactionKind").value = "expense";
+  $("transactionAmount").value = "125.50";
+  $("transactionCategory").value = "Groceries";
+  $("transactionDate").value = today;
+  $("transactionNote").value = "";
+  await $("transactionForm").listeners.submit({ preventDefault() {}, target: $("transactionForm") });
 
-$("goalName").value = "Emergency Fund";
-$("goalTarget").value = "5000";
-$("goalSaved").value = "750";
-$("goalForm").listeners.submit({ preventDefault() {}, target: $("goalForm") });
+  $("debtName").value = "Credit Card";
+  $("debtBalance").value = "900";
+  $("debtMinimum").value = "45";
+  await $("debtForm").listeners.submit({ preventDefault() {}, target: $("debtForm") });
 
-assert($("incomeTotal").textContent === "$3,200.00", "Income total did not update.");
-assert($("expenseTotal").textContent === "$125.50", "Expense total did not update.");
-assert($("netTotal").textContent === "$3,074.50", "Net total did not update.");
-assert($("glassNetTotal").textContent === "$3,074.50", "Glass card total did not update.");
-assert($("transactionList").innerHTML.includes("Groceries"), "Expense was not rendered.");
-assert($("transactionList").innerHTML.includes("Paycheck"), "Income was not rendered.");
-assert($("debtList").innerHTML.includes("Credit Card"), "Debt was not rendered.");
-assert($("debtBalanceTotal").textContent === "$900.00", "Debt balance total did not update.");
-assert($("goalList").innerHTML.includes("Emergency Fund"), "Savings goal was not rendered.");
-assert($("goalBalanceTotal").textContent === "$750.00 / $5,000.00", "Savings goal total did not update.");
+  $("goalName").value = "Emergency Fund";
+  $("goalTarget").value = "5000";
+  $("goalSaved").value = "750";
+  await $("goalForm").listeners.submit({ preventDefault() {}, target: $("goalForm") });
 
-document.querySelector(".nav-tabs").listeners.click({ target: document.navButtons[1] });
-assert(document.navButtons[1].classList.contains("active"), "Debt tab did not activate.");
-assert(document.panels[1].classList.contains("active"), "Debt panel did not activate.");
+  assert($("incomeTotal").textContent === "$3,200.00", "Income total did not update.");
+  assert($("expenseTotal").textContent === "$125.50", "Expense total did not update.");
+  assert($("netTotal").textContent === "$3,074.50", "Net total did not update.");
+  assert($("glassNetTotal").textContent === "$3,074.50", "Glass card total did not update.");
+  assert($("transactionList").innerHTML.includes("Groceries"), "Expense was not rendered.");
+  assert($("transactionList").innerHTML.includes("Paycheck"), "Income was not rendered.");
+  assert($("debtList").innerHTML.includes("Credit Card"), "Debt was not rendered.");
+  assert($("debtBalanceTotal").textContent === "$900.00", "Debt balance total did not update.");
+  assert($("goalList").innerHTML.includes("Emergency Fund"), "Savings goal was not rendered.");
+  assert($("goalBalanceTotal").textContent === "$750.00 / $5,000.00", "Savings goal total did not update.");
 
-document.listener("click")({ target: new Element({ dataset: { deleteDebt: "missing" } }) });
-assert($("debtList").innerHTML.includes("Credit Card"), "Unknown delete should not remove debt.");
+  document.querySelector(".nav-tabs").listeners.click({ target: document.navButtons[1] });
+  assert(document.navButtons[1].classList.contains("active"), "Debt tab did not activate.");
+  assert(document.panels[1].classList.contains("active"), "Debt panel did not activate.");
 
-const saved = JSON.parse(storage.get("pocket-ledger-web:v1"));
-const firstTransactionId = saved.transactions[0].id;
-document.listener("click")({ target: new Element({ dataset: { deleteTransaction: firstTransactionId } }) });
-assert(!$("transactionList").innerHTML.includes("Groceries"), "Transaction delete did not update the list.");
+  const saved = JSON.parse(storage.get("pocket-ledger-web:v2"));
+  const firstTransactionId = saved.transactions[0].id;
+  await document.listener("click")({ target: new Element({ dataset: { deleteTransaction: firstTransactionId } }) });
+  assert(!$("transactionList").innerHTML.includes("Groceries"), "Transaction delete did not update the list.");
 
-$("exportButton").listeners.click();
-assert(objectUrlRevoked, "CSV export did not create and revoke a blob URL.");
+  $("exportButton").listeners.click();
+  assert(objectUrlRevoked, "CSV export did not create and revoke a blob URL.");
 
-console.log("QA passed: forms, totals, tabs, delete, export, and local persistence are working.");
+  console.log("QA passed: auth fallback, forms, totals, tabs, delete, export, and local persistence are working.");
+})().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

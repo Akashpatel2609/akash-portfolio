@@ -25,6 +25,7 @@ export const profile = {
   hero: {
     eyebrow: "AI Analytics Portfolio",
     brandMark: "AP",
+    profileImage: "/images/akash-patel-profile.png",
     dashboardLabel: "Live analytics layer",
     name: "Akash Patel",
     headline:
@@ -183,14 +184,14 @@ export const profile = {
     }
   ],
   contact: {
-    email: "akash.patel@example.com",
-    linkedin: "https://www.linkedin.com/in/akashpatel",
-    github: "https://github.com/akashpatel",
+    email: "26akashpatel99@gmail.com",
+    linkedin: "http://www.linkedin.com/in/akp09",
+    github: "https://github.com/Akashpatel2609",
     resume: "/resume",
     links: [
-      { label: "Email", value: "akash.patel@example.com", href: "mailto:akash.patel@example.com", icon: Mail },
-      { label: "LinkedIn", value: "linkedin.com/in/akashpatel", href: "https://www.linkedin.com/in/akashpatel", icon: Linkedin },
-      { label: "GitHub", value: "github.com/akashpatel", href: "https://github.com/akashpatel", icon: Github }
+      { label: "Email", value: "26akashpatel99@gmail.com", href: "mailto:26akashpatel99@gmail.com", icon: Mail },
+      { label: "LinkedIn", value: "linkedin.com/in/akp09", href: "http://www.linkedin.com/in/akp09", icon: Linkedin },
+      { label: "GitHub", value: "github.com/Akashpatel2609", href: "https://github.com/Akashpatel2609", icon: Github }
     ]
   }
 } as const;

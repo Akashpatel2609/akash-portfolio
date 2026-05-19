@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { profile } from "@/data/profile";
 
 export function Header() {
@@ -13,8 +14,15 @@ export function Header() {
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <a href="#top" className="flex items-center gap-3 text-sm font-semibold text-[#F8FAFC]">
-          <span className="grid size-8 place-items-center rounded border border-[#38BDF8]/45 bg-[#38BDF8]/10 text-[#38BDF8]">
-            {profile.hero.brandMark}
+          <span className="relative size-9 overflow-hidden rounded border border-[#38BDF8]/45 bg-[#111827] shadow-[0_0_20px_rgba(56,189,248,0.18)]">
+            <Image
+              src={profile.hero.profileImage}
+              alt={`${profile.hero.name} profile photo`}
+              fill
+              priority
+              sizes="36px"
+              className="object-cover"
+            />
           </span>
           {profile.hero.name}
         </a>

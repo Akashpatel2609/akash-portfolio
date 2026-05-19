@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Amazon Reviews ETL pipeline visualization</title>
+  <desc id="desc">A modern data pipeline diagram from JSON review records through Pig, Hive, SSIS, SQL Server, and Power BI.</desc>
+  <defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+  <rect width="1600" height="1000" fill="#050505"/>
+  <path d="M0 160h1600M0 360h1600M0 560h1600M0 760h1600M180 0v1000M420 0v1000M660 0v1000M900 0v1000M1140 0v1000M1380 0v1000" stroke="#fff" stroke-opacity=".045"/>
+  <rect x="90" y="90" width="1420" height="820" rx="36" fill="#101010" stroke="#fff" stroke-opacity=".12"/>
+  <text x="140" y="165" fill="#fff" font-family="Inter,Arial" font-size="44" font-weight="700">Amazon Reviews ETL Pipeline</text>
+  <text x="140" y="212" fill="#a1a1aa" font-family="Inter,Arial" font-size="22">34.7M JSON records processed into analysis-ready Power BI reporting</text>
+  <g fill="#0a0a0a" stroke="#fff" stroke-opacity=".14">
+    <rect x="140" y="360" width="190" height="170" rx="24"/><rect x="400" y="360" width="190" height="170" rx="24"/><rect x="660" y="360" width="190" height="170" rx="24"/><rect x="920" y="360" width="190" height="170" rx="24"/><rect x="1180" y="360" width="230" height="170" rx="24"/>
+  </g>
+  <g fill="#fff" font-family="Inter,Arial" font-size="28" font-weight="700"><text x="188" y="430">JSON</text><text x="455" y="430">Pig</text><text x="710" y="430">Hive</text><text x="972" y="430">SSIS</text><text x="1220" y="430">Power BI</text></g>
+  <g fill="#a1a1aa" font-family="Inter,Arial" font-size="18"><text x="175" y="470">Review records</text><text x="432" y="470">Transform</text><text x="700" y="470">Query layer</text><text x="953" y="470">SQL Server</text><text x="1218" y="470">Trend reporting</text></g>
+  <path d="M330 445h70M590 445h70M850 445h70M1110 445h70" stroke="url(#g)" stroke-width="6" stroke-linecap="round" filter="url(#glow)"/>
+  <rect x="140" y="650" width="590" height="150" rx="24" fill="#0a0a0a" stroke="#fff" stroke-opacity=".12"/>
+  <rect x="810" y="650" width="600" height="150" rx="24" fill="#0a0a0a" stroke="#fff" stroke-opacity=".12"/>
+  <text x="185" y="725" fill="#fff" font-family="Inter,Arial" font-size="46" font-weight="700">34.7M</text><text x="350" y="725" fill="#a1a1aa" font-family="Inter,Arial" font-size="22">records processed</text>
+  <text x="855" y="725" fill="#fff" font-family="Inter,Arial" font-size="46" font-weight="700">70%</text><text x="985" y="725" fill="#a1a1aa" font-family="Inter,Arial" font-size="22">data prep time reduced</text>
+</svg>

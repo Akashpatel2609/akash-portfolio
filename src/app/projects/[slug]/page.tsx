@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ArrowLeft, ExternalLink } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BentoCard } from "@/components/bento-card";
@@ -127,8 +128,14 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <section className="mt-6 grid gap-6 lg:grid-cols-2">
         <BentoCard>
           <h2 className="text-2xl font-semibold text-white">Screenshots</h2>
-          <div className="mt-5 grid min-h-56 place-items-center rounded-2xl border border-dashed border-white/15 bg-black/30 p-6 text-center text-sm text-zinc-500">
-            Screenshots placeholder
+          <div className="relative mt-5 aspect-[16/10] overflow-hidden rounded-2xl border border-white/10 bg-black/30">
+            <Image
+              src={project.caseStudy.screenshot}
+              alt={project.caseStudy.screenshotAlt}
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+            />
           </div>
         </BentoCard>
         <BentoCard>

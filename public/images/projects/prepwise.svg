@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">PrepWise AI interview platform visualization</title>
+  <desc id="desc">A dark dashboard-style system map for real-time interview analysis using speech, vision, API, and feedback streams.</desc>
+  <defs>
+    <linearGradient id="panel" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#161616"/><stop offset="1" stop-color="#080808"/></linearGradient>
+    <linearGradient id="line" x1="0" x2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1600" height="1000" fill="#050505"/>
+  <path d="M0 130h1600M0 290h1600M0 450h1600M0 610h1600M0 770h1600M180 0v1000M420 0v1000M660 0v1000M900 0v1000M1140 0v1000M1380 0v1000" stroke="#fff" stroke-opacity=".045"/>
+  <rect x="90" y="90" width="1420" height="820" rx="36" fill="url(#panel)" stroke="#fff" stroke-opacity=".12"/>
+  <text x="140" y="165" fill="#fff" font-family="Inter,Arial" font-size="44" font-weight="700">PrepWise AI Interview System</text>
+  <text x="140" y="212" fill="#a1a1aa" font-family="Inter,Arial" font-size="22">Whisper + MediaPipe + FastAPI + WebSockets</text>
+  <g fill="#0b0b0b" stroke="#fff" stroke-opacity=".14">
+    <rect x="140" y="295" width="320" height="230" rx="24"/>
+    <rect x="640" y="250" width="320" height="320" rx="24"/>
+    <rect x="1140" y="295" width="320" height="230" rx="24"/>
+    <rect x="390" y="665" width="820" height="150" rx="24"/>
+  </g>
+  <g fill="#fff" font-family="Inter,Arial" font-weight="700" font-size="28">
+    <text x="190" y="360">Live Candidate</text>
+    <text x="704" y="330">AI Analysis Core</text>
+    <text x="1195" y="360">Instant Feedback</text>
+    <text x="450" y="725">Performance Signal Timeline</text>
+  </g>
+  <g fill="#a1a1aa" font-family="Inter,Arial" font-size="18">
+    <text x="190" y="405">Audio stream</text><text x="190" y="438">Video posture</text><text x="190" y="471">Answer cadence</text>
+    <text x="704" y="382">Speech transcription</text><text x="704" y="415">Visual cue extraction</text><text x="704" y="448">Scoring pipeline</text>
+    <text x="1195" y="405">Delivery insights</text><text x="1195" y="438">Content feedback</text><text x="1195" y="471">Improvement prompts</text>
+  </g>
+  <path d="M460 410 C540 410 560 410 640 410M960 410 C1040 410 1060 410 1140 410" fill="none" stroke="url(#line)" stroke-width="5" stroke-linecap="round" filter="url(#glow)"/>
+  <circle cx="800" cy="410" r="90" fill="#fff" fill-opacity=".04" stroke="url(#line)" stroke-width="3"/>
+  <text x="748" y="420" fill="#fff" font-family="Inter,Arial" font-size="32" font-weight="700">REAL</text>
+  <text x="748" y="455" fill="#fff" font-family="Inter,Arial" font-size="32" font-weight="700">TIME</text>
+  <g fill="none" stroke="#fff" stroke-opacity=".36" stroke-linecap="round" stroke-width="12">
+    <path d="M470 770h120"/><path d="M630 770h210"/><path d="M880 770h90"/><path d="M1010 770h130"/>
+  </g>
+  <g fill="#8b5cf6" opacity=".7"><circle cx="590" cy="770" r="10"/><circle cx="842" cy="770" r="10"/><circle cx="970" cy="770" r="10"/></g>
+</svg>

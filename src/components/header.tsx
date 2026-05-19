@@ -13,11 +13,11 @@ export function Header() {
       className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-[#050505]/70 backdrop-blur-2xl"
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a href="#top" className="flex items-center gap-3 text-sm font-semibold text-white">
+        <a href={profile.seo.canonical} className="flex items-center gap-3 text-sm font-semibold text-white">
           <span className="relative size-9 overflow-hidden rounded-full border border-white/15 bg-white/10 shadow-[0_0_30px_rgba(255,255,255,0.12)]">
             <Image
               src={profile.hero.profileImage}
-              alt={`${profile.hero.name} profile photo`}
+              alt={profile.hero.profileImageAlt}
               fill
               priority
               sizes="36px"

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Maple Reinders executive analytics visualization</title>
+  <desc id="desc">A dark executive analytics dashboard with forecasting, margin, resource planning, KPI, and risk reporting cards.</desc>
+  <defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
+  <rect width="1600" height="1000" fill="#050505"/>
+  <path d="M0 120h1600M0 300h1600M0 480h1600M0 660h1600M0 840h1600M220 0v1000M520 0v1000M820 0v1000M1120 0v1000M1420 0v1000" stroke="#fff" stroke-opacity=".045"/>
+  <rect x="90" y="90" width="1420" height="820" rx="36" fill="#101010" stroke="#fff" stroke-opacity=".12"/>
+  <text x="140" y="165" fill="#fff" font-family="Inter,Arial" font-size="44" font-weight="700">Executive Analytics Control Center</text>
+  <text x="140" y="212" fill="#a1a1aa" font-family="Inter,Arial" font-size="22">Finance, operations, forecasting, margin, resource planning, KPI, and risk workflows</text>
+  <g fill="#0a0a0a" stroke="#fff" stroke-opacity=".12">
+    <rect x="140" y="285" width="295" height="155" rx="22"/><rect x="465" y="285" width="295" height="155" rx="22"/><rect x="790" y="285" width="295" height="155" rx="22"/><rect x="1115" y="285" width="295" height="155" rx="22"/>
+  </g>
+  <g font-family="Inter,Arial"><text x="170" y="345" fill="#fff" font-size="42" font-weight="700">10+</text><text x="170" y="390" fill="#a1a1aa" font-size="19">Dashboards launched</text><text x="495" y="345" fill="#fff" font-size="42" font-weight="700">6-8h</text><text x="495" y="390" fill="#a1a1aa" font-size="19">Weekly reporting reduced</text><text x="820" y="345" fill="#fff" font-size="42" font-weight="700">15m</text><text x="820" y="390" fill="#a1a1aa" font-size="19">Vena load cycle</text><text x="1145" y="345" fill="#fff" font-size="42" font-weight="700">7d</text><text x="1145" y="390" fill="#a1a1aa" font-size="19">Delay risk averted</text></g>
+  <rect x="140" y="510" width="760" height="300" rx="26" fill="#0a0a0a" stroke="#fff" stroke-opacity=".12"/>
+  <rect x="950" y="510" width="460" height="300" rx="26" fill="#0a0a0a" stroke="#fff" stroke-opacity=".12"/>
+  <g fill="url(#g)" opacity=".9"><rect x="190" y="725" width="55" height="45" rx="8"/><rect x="275" y="670" width="55" height="100" rx="8"/><rect x="360" y="625" width="55" height="145" rx="8"/><rect x="445" y="585" width="55" height="185" rx="8"/><rect x="530" y="645" width="55" height="125" rx="8"/><rect x="615" y="560" width="55" height="210" rx="8"/><rect x="700" y="610" width="55" height="160" rx="8"/><rect x="785" y="535" width="55" height="235" rx="8"/></g>
+  <g fill="none" stroke="#fff" stroke-opacity=".4" stroke-width="10" stroke-linecap="round"><path d="M1010 595h310"/><path d="M1010 650h250"/><path d="M1010 705h335"/><path d="M1010 760h190"/></g>
+  <path d="M190 600 C320 520 470 540 600 475 C710 420 780 455 840 400" fill="none" stroke="url(#g)" stroke-width="5"/>
+</svg>

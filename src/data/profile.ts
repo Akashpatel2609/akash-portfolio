@@ -26,11 +26,11 @@ export const profile = {
     image: "/images/akash-patel-profile.png"
   },
   nav: [
-    { label: "About", href: "#about" },
-    { label: "Experience", href: "#experience" },
-    { label: "Projects", href: "#projects" },
-    { label: "Skills", href: "#skills" },
-    { label: "Contact", href: "#contact" }
+    { label: "About", href: "/#about" },
+    { label: "Experience", href: "/#experience" },
+    { label: "Projects", href: "/#projects" },
+    { label: "Skills", href: "/#skills" },
+    { label: "Contact", href: "/#contact" }
   ],
   hero: {
     eyebrow: "Toronto-based Data Analyst / BI Developer / Applied AI Builder",
@@ -173,7 +173,9 @@ export const profile = {
         businessImpact:
           "Created a practical applied-AI product that turns mock interviews into actionable coaching sessions.",
         repository: "https://github.com/Akashpatel2609/PrepWise",
-        demo: "https://github.com/Akashpatel2609/PrepWise"
+        demo: "https://github.com/Akashpatel2609/PrepWise",
+        screenshot: "/images/projects/prepwise.svg",
+        screenshotAlt: "PrepWise AI interview platform architecture and feedback dashboard visualization"
       }
     },
     {
@@ -200,7 +202,9 @@ export const profile = {
         businessImpact:
           "Improved executive visibility across financial and operational performance while reducing manual reporting effort.",
         repository: "Internal work - repository unavailable",
-        demo: "Screenshots available on request"
+        demo: "Screenshots available on request",
+        screenshot: "/images/projects/maple-executive-analytics.svg",
+        screenshotAlt: "Maple Reinders executive analytics Power BI dashboard visualization"
       }
     },
     {
@@ -226,7 +230,9 @@ export const profile = {
         businessImpact:
           "Reduced preparation time and enabled faster review trend analysis from large-scale customer feedback.",
         repository: "",
-        demo: "https://app.powerbi.com/groups/me/reports/ad3635ea-f1f3-47f5-a5c2-936a4073bfdd/38e0b2f42920542e9818?experience=power-bi"
+        demo: "https://app.powerbi.com/groups/me/reports/ad3635ea-f1f3-47f5-a5c2-936a4073bfdd/38e0b2f42920542e9818?experience=power-bi",
+        screenshot: "/images/projects/amazon-etl.svg",
+        screenshotAlt: "Amazon Reviews ETL pipeline from JSON records to Power BI reporting visualization"
       }
     },
     {
@@ -253,7 +259,9 @@ export const profile = {
         businessImpact:
           "Identified opportunities to shift underutilized vehicle capacity into higher-demand windows.",
         repository: "",
-        demo: "https://app.powerbi.com/groups/me/reports/70948659-7e73-4758-80e2-a613f72bb106/8d5d9ba8102e05c81dcf?experience=power-bi"
+        demo: "https://app.powerbi.com/groups/me/reports/70948659-7e73-4758-80e2-a613f72bb106/8d5d9ba8102e05c81dcf?experience=power-bi",
+        screenshot: "/images/projects/uber-trip-analytics.svg",
+        screenshotAlt: "Uber trip analytics dashboard showing demand, utilization, and revenue patterns"
       }
     },
     {
@@ -280,7 +288,9 @@ export const profile = {
         businessImpact:
           "Reduced manual reporting and helped leaders identify workforce attrition patterns faster.",
         repository: "",
-        demo: "https://public.tableau.com/app/profile/akash.patel3574/viz/HR_Dashboard_17407938446160/HRSummary"
+        demo: "https://public.tableau.com/app/profile/akash.patel3574/viz/HR_Dashboard_17407938446160/HRSummary",
+        screenshot: "/images/projects/hr-analytics.svg",
+        screenshotAlt: "HR analytics Tableau dashboard visualization for attrition and workforce insights"
       }
     }
   ],

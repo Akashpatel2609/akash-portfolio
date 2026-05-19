@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">HR Analytics dashboard visualization</title>
+  <desc id="desc">A dark Tableau-style HR analytics dashboard for attrition, workforce segments, and leadership insights.</desc>
+  <defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
+  <rect width="1600" height="1000" fill="#050505"/>
+  <path d="M0 140h1600M0 330h1600M0 520h1600M0 710h1600M0 900h1600M250 0v1000M550 0v1000M850 0v1000M1150 0v1000M1450 0v1000" stroke="#fff" stroke-opacity=".045"/>
+  <rect x="90" y="90" width="1420" height="820" rx="36" fill="#101010" stroke="#fff" stroke-opacity=".12"/>
+  <text x="140" y="165" fill="#fff" font-family="Inter,Arial" font-size="44" font-weight="700">HR Analytics Dashboard</text>
+  <text x="140" y="212" fill="#a1a1aa" font-family="Inter,Arial" font-size="22">Attrition patterns, workforce segmentation, and leadership-ready HR insights</text>
+  <g fill="#0a0a0a" stroke="#fff" stroke-opacity=".12"><rect x="140" y="285" width="370" height="210" rx="24"/><rect x="545" y="285" width="370" height="210" rx="24"/><rect x="950" y="285" width="460" height="210" rx="24"/><rect x="140" y="565" width="610" height="250" rx="24"/><rect x="800" y="565" width="610" height="250" rx="24"/></g>
+  <text x="185" y="355" fill="#fff" font-family="Inter,Arial" font-size="44" font-weight="700">8,000</text><text x="185" y="405" fill="#a1a1aa" font-family="Inter,Arial" font-size="20">HR records modeled</text>
+  <text x="590" y="355" fill="#fff" font-family="Inter,Arial" font-size="44" font-weight="700">Attrition</text><text x="590" y="405" fill="#a1a1aa" font-family="Inter,Arial" font-size="20">root-cause analysis</text>
+  <g fill="none" stroke-width="22"><circle cx="1180" cy="390" r="72" stroke="#fff" stroke-opacity=".12"/><path d="M1180 318a72 72 0 0 1 62 108" stroke="url(#g)" stroke-linecap="round"/></g>
+  <text x="1280" y="398" fill="#a1a1aa" font-family="Inter,Arial" font-size="20">workforce risk index</text>
+  <g fill="url(#g)" opacity=".9"><rect x="205" y="745" width="52" height="35" rx="8"/><rect x="285" y="705" width="52" height="75" rx="8"/><rect x="365" y="655" width="52" height="125" rx="8"/><rect x="445" y="690" width="52" height="90" rx="8"/><rect x="525" y="625" width="52" height="155" rx="8"/><rect x="605" y="675" width="52" height="105" rx="8"/></g>
+  <g fill="none" stroke="#fff" stroke-opacity=".4" stroke-width="10" stroke-linecap="round"><path d="M875 640h420"/><path d="M875 695h360"/><path d="M875 750h455"/></g>
+</svg>

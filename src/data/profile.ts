@@ -161,7 +161,7 @@ export const profile = {
   ],
   experience: [
     {
-      role: "Data Analyst Co-op",
+      role: "Data Analyst",
       company: "Maple Reinders",
       icon: BriefcaseBusiness,
       summary:
@@ -176,11 +176,25 @@ export const profile = {
   ],
   achievements: [
     {
+      title: "3rd Place, HackTheBrain Hackathon",
+      icon: Medal,
+      metrics: ["3rd Place", "ComUnity Canada", "2025"],
+      description:
+        "Placed third in the HackTheBrain Hackathon hosted by ComUnity Canada at Toronto Techfest."
+    },
+    {
+      title: "Two-Time Dean's List Recipient",
+      icon: Medal,
+      metrics: ["Dean's List", "Two-time recipient", "2025"],
+      description:
+        "Recognized twice for exceptional academic achievement and consistent high performance."
+    },
+    {
       title: "CrowdStrike Data Science Hackathon Runner-Up",
       icon: Medal,
-      metrics: ["Runner-Up", "Top 2%", "95% model accuracy"],
+      metrics: ["Runner-Up", "TechGig", "2020"],
       description:
-        "Recognized for a high-performing data science solution with strong model accuracy and competitive placement."
+        "Finished as a runner-up in the CrowdStrike Data Science Hackathon hosted by TechGig."
     }
   ],
   contact: {

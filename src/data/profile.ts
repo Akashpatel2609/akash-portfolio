@@ -17,7 +17,7 @@ import {
 
 export const profile = {
   seo: {
-    title: "Akash Patel | AI Analytics Portfolio",
+    title: "Akash Patel",
     description:
       "Portfolio for Akash Patel, a Data Analyst building AI-powered analytics systems, business intelligence dashboards, and automation workflows."
   },

@@ -38,7 +38,8 @@ export function Projects() {
                   ))}
                 </div>
                 <a
-                  href="#contact"
+                  href={`/projects/${project.slug}`}
+                  aria-label={`${project.cta}: ${project.title}`}
                   className="mt-7 inline-flex w-fit items-center gap-2 text-sm font-semibold text-white transition hover:text-zinc-300"
                 >
                   {project.cta}

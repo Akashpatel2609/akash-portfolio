@@ -2,11 +2,12 @@
 
 import { ArrowDownRight, Download, Mail } from "lucide-react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { profile } from "@/data/profile";
 import { cn } from "@/lib/utils";
 
 const iconMap = {
-  "View Projects": ArrowDownRight,
+  "View Work": ArrowDownRight,
   "Download Resume": Download,
   "Contact Me": Mail
 };
@@ -14,7 +15,7 @@ const iconMap = {
 export function Hero() {
   return (
     <section id="top" className="relative min-h-[94vh] overflow-hidden pt-32 sm:pt-36">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1.04fr_0.96fr] lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1.02fr_0.98fr] lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -27,6 +28,9 @@ export function Hero() {
           <h1 className="max-w-5xl text-6xl font-semibold leading-[0.94] text-white sm:text-7xl lg:text-8xl">
             {profile.hero.name}
           </h1>
+          <p className="mt-4 text-lg font-medium text-zinc-300 sm:text-xl">
+            {profile.hero.title}
+          </p>
           <p className="mt-6 max-w-4xl text-2xl font-medium leading-tight text-white sm:text-4xl">
             {profile.hero.headline}
           </p>
@@ -63,15 +67,35 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className="relative min-h-[25rem] rounded-[1.35rem] border border-white/10 bg-white/[0.055] p-4 shadow-2xl shadow-black/40 backdrop-blur-2xl"
+          className="relative min-h-[34rem] rounded-[1.35rem] border border-white/10 bg-white/[0.055] p-4 shadow-2xl shadow-black/40 backdrop-blur-2xl"
         >
           <div className="absolute inset-0 rounded-[1.35rem] bg-[radial-gradient(circle_at_15%_15%,rgba(255,255,255,0.17),transparent_30%),radial-gradient(circle_at_85%_70%,rgba(124,58,237,0.18),transparent_34%)]" />
-          <div className="relative grid h-full grid-rows-[auto_1fr_auto] gap-4">
+          <div className="relative grid h-full grid-rows-[auto_auto_1fr] gap-4">
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
               <span className="text-xs font-medium uppercase tracking-[0.22em] text-zinc-400">
                 {profile.hero.dashboardLabel}
               </span>
               <span className="size-2 rounded-full bg-white shadow-[0_0_18px_rgba(255,255,255,0.9)]" />
+            </div>
+            <div className="grid gap-4 sm:grid-cols-[0.72fr_1fr]">
+              <div className="relative min-h-56 overflow-hidden rounded-2xl border border-white/10 bg-black/35 shadow-[0_0_50px_rgba(255,255,255,0.08)]">
+                <Image
+                  src={profile.hero.profileImage}
+                  alt={profile.hero.profileImageAlt}
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 260px, 100vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                {profile.impactMetrics.map((stat) => (
+                  <div key={stat.label} className="rounded-xl border border-white/10 bg-black/35 p-4">
+                    <p className="text-2xl font-semibold text-white">{stat.value}</p>
+                    <p className="mt-2 text-xs leading-5 text-zinc-400">{stat.label}</p>
+                  </div>
+                ))}
+              </div>
             </div>
             <div className="grid grid-cols-6 grid-rows-6 gap-3">
               <div className="col-span-4 row-span-3 rounded-xl border border-white/10 bg-black/35 p-4">
@@ -90,7 +114,7 @@ export function Hero() {
               </div>
               <div className="col-span-2 row-span-3 rounded-xl border border-white/10 bg-black/35 p-4">
                 <div className="mx-auto mt-4 grid size-24 place-items-center rounded-full border border-white/20 bg-white/[0.06] text-xl font-semibold text-white shadow-[inset_0_0_40px_rgba(255,255,255,0.06)]">
-                  {profile.hero.stats[0].value}
+                  {profile.impactMetrics[3].value}
                 </div>
               </div>
               <div className="col-span-3 row-span-3 rounded-xl border border-white/10 bg-black/35 p-4">
@@ -122,14 +146,6 @@ export function Hero() {
                   ))}
                 </div>
               </div>
-            </div>
-            <div className="grid grid-cols-3 gap-3">
-              {profile.hero.stats.map((stat) => (
-                <div key={stat.label} className="rounded-xl border border-white/10 bg-black/35 p-4">
-                  <p className="text-2xl font-semibold text-white">{stat.value}</p>
-                  <p className="mt-1 text-xs text-zinc-400">{stat.label}</p>
-                </div>
-              ))}
             </div>
           </div>
         </motion.div>

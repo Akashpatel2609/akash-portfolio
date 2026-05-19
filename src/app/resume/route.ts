@@ -3,6 +3,8 @@ import { profile } from "@/data/profile";
 export function GET() {
   const lines = [
     profile.hero.name,
+    profile.hero.title,
+    "",
     profile.hero.headline,
     "",
     profile.hero.subheadline,
@@ -14,8 +16,19 @@ export function GET() {
     "",
     profile.sections.experience.label,
     ...profile.experience.flatMap((item) => [
-      `${item.role}, ${item.company}`,
+      `${item.role}, ${item.company} - ${item.location} - ${item.date}`,
       item.summary,
+      ...item.bullets.map((bullet) => `- ${bullet}`)
+    ]),
+    "",
+    profile.sections.education.label,
+    ...profile.education.map(
+      (item) => `${item.school}, ${item.location}: ${item.credential}, ${item.year}. ${item.result}`
+    ),
+    "",
+    profile.sections.community.label,
+    ...profile.community.flatMap((item) => [
+      `${item.role}, ${item.organization} - ${item.date}`,
       ...item.bullets.map((bullet) => `- ${bullet}`)
     ]),
     "",

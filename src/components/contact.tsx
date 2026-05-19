@@ -17,7 +17,16 @@ export function Contact() {
               {profile.contact.links.map((link) => {
                 const Icon = link.icon;
 
-                return (
+                return link.href === "#contact" ? (
+                  <div
+                    key={link.label}
+                    className="rounded-xl border border-white/10 bg-black/30 p-4"
+                  >
+                    <Icon className="mb-4 text-white" size={22} />
+                    <p className="text-sm font-semibold text-white">{link.label}</p>
+                    <p className="mt-1 break-words text-sm text-zinc-400">{link.value}</p>
+                  </div>
+                ) : (
                   <a
                     key={link.label}
                     href={link.href}

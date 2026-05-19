@@ -16,8 +16,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(profile.seo.canonical),
   title: profile.seo.title,
   description: profile.seo.description,
+  alternates: {
+    canonical: profile.seo.canonical
+  },
   icons: {
     icon: "/icon.svg",
     shortcut: "/icon.svg",
@@ -26,12 +30,15 @@ export const metadata: Metadata = {
   openGraph: {
     title: profile.seo.title,
     description: profile.seo.description,
-    type: "website"
+    type: "website",
+    url: profile.seo.canonical,
+    images: [profile.seo.image]
   },
   twitter: {
     card: "summary_large_image",
     title: profile.seo.title,
-    description: profile.seo.description
+    description: profile.seo.description,
+    images: [profile.seo.image]
   }
 };
 

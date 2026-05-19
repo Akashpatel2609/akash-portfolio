@@ -8,7 +8,7 @@ export function Skills() {
 
   return (
     <SectionShell id={section.id} eyebrow={section.eyebrow} title={section.title}>
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
         {profile.skills.map((skill, index) => {
           const Icon = skill.icon;
 

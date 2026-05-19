@@ -24,9 +24,12 @@ export function Experience() {
                       {item.company}
                     </p>
                     <h3 className="mt-3 text-2xl font-semibold text-white">{item.role}</h3>
+                    <p className="mt-2 text-sm text-zinc-400">
+                      {item.location} / {item.date}
+                    </p>
                     <p className="mt-4 text-sm leading-7 text-zinc-400">{item.summary}</p>
                   </div>
-                  <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="grid gap-3">
                     {item.bullets.map((bullet) => (
                       <div key={bullet} className="rounded-xl border border-white/10 bg-black/30 p-4">
                         <p className="text-sm leading-7 text-zinc-400">{bullet}</p>

@@ -29,11 +29,11 @@ export function Header() {
         <nav className="hidden items-center gap-6 md:flex">
           {profile.nav.map((item) => (
             <a
-              key={item}
-              href={`#${item.toLowerCase().replace("featured ", "")}`}
+              key={item.label}
+              href={item.href}
               className="text-sm text-zinc-400 transition hover:text-white"
             >
-              {item}
+              {item.label}
             </a>
           ))}
         </nav>

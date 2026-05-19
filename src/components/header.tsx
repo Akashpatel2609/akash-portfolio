@@ -10,11 +10,11 @@ export function Header() {
       initial={{ opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="fixed left-0 right-0 top-0 z-50 border-b border-[#273244]/60 bg-[#0B0F14]/78 backdrop-blur-xl"
+      className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-[#050505]/70 backdrop-blur-2xl"
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a href="#top" className="flex items-center gap-3 text-sm font-semibold text-[#F8FAFC]">
-          <span className="relative size-9 overflow-hidden rounded border border-[#38BDF8]/45 bg-[#111827] shadow-[0_0_20px_rgba(56,189,248,0.18)]">
+        <a href="#top" className="flex items-center gap-3 text-sm font-semibold text-white">
+          <span className="relative size-9 overflow-hidden rounded-full border border-white/15 bg-white/10 shadow-[0_0_30px_rgba(255,255,255,0.12)]">
             <Image
               src={profile.hero.profileImage}
               alt={`${profile.hero.name} profile photo`}
@@ -31,7 +31,7 @@ export function Header() {
             <a
               key={item}
               href={`#${item.toLowerCase().replace("featured ", "")}`}
-              className="text-sm text-[#94A3B8] transition hover:text-[#F8FAFC]"
+              className="text-sm text-zinc-400 transition hover:text-white"
             >
               {item}
             </a>

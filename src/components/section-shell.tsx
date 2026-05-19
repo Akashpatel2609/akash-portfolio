@@ -12,12 +12,12 @@ type SectionShellProps = {
 
 export function SectionShell({ id, eyebrow, title, children, className }: SectionShellProps) {
   return (
-    <section id={id} className={cn("scroll-mt-24 py-12 sm:py-16", className)}>
-      <Reveal className="mb-8 max-w-3xl">
-        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-[#38BDF8]">
+    <section id={id} className={cn("scroll-mt-24 py-14 sm:py-20", className)}>
+      <Reveal className="mb-9 max-w-3xl">
+        <p className="mb-3 w-fit rounded-full border border-white/10 bg-white/[0.055] px-3 py-1.5 text-xs font-medium uppercase tracking-[0.22em] text-zinc-300">
           {eyebrow}
         </p>
-        <h2 className="text-3xl font-semibold leading-tight text-[#F8FAFC] sm:text-4xl">
+        <h2 className="text-3xl font-semibold leading-tight text-white sm:text-5xl">
           {title}
         </h2>
       </Reveal>

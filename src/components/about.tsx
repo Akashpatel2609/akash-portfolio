@@ -12,15 +12,15 @@ export function About() {
       <div className="grid gap-4 lg:grid-cols-[1.3fr_0.7fr]">
         <Reveal>
           <BentoCard className="h-full">
-            <p className="text-lg leading-8 text-[#94A3B8]">{section.body}</p>
+            <p className="text-lg leading-8 text-zinc-400">{section.body}</p>
           </BentoCard>
         </Reveal>
         <Reveal delay={0.08}>
           <BentoCard className="h-full">
             <div className="space-y-4">
               {section.highlights.map((highlight) => (
-                <div key={highlight} className="flex items-center gap-3 text-[#F8FAFC]">
-                  <CheckCircle2 className="shrink-0 text-[#A3E635]" size={20} />
+                <div key={highlight} className="flex items-center gap-3 text-white">
+                  <CheckCircle2 className="shrink-0 text-white" size={20} />
                   <span className="text-sm font-medium">{highlight}</span>
                 </div>
               ))}

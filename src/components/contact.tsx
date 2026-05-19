@@ -12,7 +12,7 @@ export function Contact() {
       <Reveal>
         <BentoCard>
           <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:items-center">
-            <p className="text-lg leading-8 text-[#94A3B8]">{section.body}</p>
+            <p className="text-lg leading-8 text-zinc-400">{section.body}</p>
             <div className="grid gap-3 sm:grid-cols-2">
               {profile.contact.links.map((link) => {
                 const Icon = link.icon;
@@ -23,17 +23,17 @@ export function Contact() {
                     href={link.href}
                     target={link.href.startsWith("http") ? "_blank" : undefined}
                     rel={link.href.startsWith("http") ? "noreferrer" : undefined}
-                    className="rounded border border-[#273244] bg-[#0B0F14]/60 p-4 transition hover:border-[#38BDF8]/60"
+                    className="rounded-xl border border-white/10 bg-black/30 p-4 transition hover:border-white/25 hover:bg-white/[0.055]"
                   >
-                    <Icon className="mb-4 text-[#38BDF8]" size={22} />
-                    <p className="text-sm font-semibold text-[#F8FAFC]">{link.label}</p>
-                    <p className="mt-1 break-words text-sm text-[#94A3B8]">{link.value}</p>
+                    <Icon className="mb-4 text-white" size={22} />
+                    <p className="text-sm font-semibold text-white">{link.label}</p>
+                    <p className="mt-1 break-words text-sm text-zinc-400">{link.value}</p>
                   </a>
                 );
               })}
               <a
                 href={profile.contact.resume}
-                className="inline-flex min-h-24 items-center gap-3 rounded border border-[#38BDF8] bg-[#38BDF8] p-4 text-sm font-semibold text-[#0B0F14] shadow-[0_0_32px_rgba(56,189,248,0.24)] transition hover:bg-[#7DD3FC]"
+                className="inline-flex min-h-24 items-center gap-3 rounded-xl border border-white bg-white p-4 text-sm font-semibold text-black shadow-[0_0_36px_rgba(255,255,255,0.18)] transition hover:bg-zinc-200"
               >
                 <Download size={22} />
                 {profile.hero.actions[1].label}

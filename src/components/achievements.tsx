@@ -16,12 +16,12 @@ export function Achievements() {
             <Reveal key={achievement.title}>
               <BentoCard>
                 <div className="grid gap-8 lg:grid-cols-[auto_1fr_auto] lg:items-center">
-                  <div className="grid size-14 place-items-center rounded border border-[#A3E635]/45 bg-[#A3E635]/10 text-[#A3E635]">
+                  <div className="grid size-14 place-items-center rounded-xl border border-white/10 bg-white/[0.075] text-white">
                     <Icon size={28} />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-semibold text-[#F8FAFC]">{achievement.title}</h3>
-                    <p className="mt-3 max-w-3xl text-sm leading-7 text-[#94A3B8]">
+                    <h3 className="text-2xl font-semibold text-white">{achievement.title}</h3>
+                    <p className="mt-3 max-w-3xl text-sm leading-7 text-zinc-400">
                       {achievement.description}
                     </p>
                   </div>
@@ -29,7 +29,7 @@ export function Achievements() {
                     {achievement.metrics.map((metric) => (
                       <span
                         key={metric}
-                        className="rounded border border-[#273244] bg-[#0B0F14]/60 px-4 py-3 text-sm font-semibold text-[#F8FAFC]"
+                        className="rounded-full border border-white/10 bg-black/30 px-4 py-3 text-sm font-semibold text-white"
                       >
                         {metric}
                       </span>

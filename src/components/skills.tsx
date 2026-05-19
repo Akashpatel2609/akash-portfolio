@@ -15,13 +15,13 @@ export function Skills() {
           return (
             <Reveal key={skill.group} delay={index * 0.05}>
               <BentoCard className="h-full">
-                <Icon className="mb-6 text-[#38BDF8]" size={26} />
-                <h3 className="text-lg font-semibold text-[#F8FAFC]">{skill.group}</h3>
+                <Icon className="mb-6 text-white" size={26} />
+                <h3 className="text-lg font-semibold text-white">{skill.group}</h3>
                 <div className="mt-5 flex flex-wrap gap-2">
                   {skill.items.map((item) => (
                     <span
                       key={item}
-                      className="rounded border border-[#273244] bg-[#0B0F14]/70 px-3 py-2 text-xs text-[#94A3B8]"
+                      className="rounded-full border border-white/10 bg-black/30 px-3 py-2 text-xs text-zinc-400"
                     >
                       {item}
                     </span>

@@ -2,13 +2,13 @@
 
 :root {
   color-scheme: dark;
-  --background: #0b0f14;
-  --card: #111827;
-  --border: #273244;
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --accent: #38bdf8;
-  --accent-secondary: #a3e635;
+  --background: #050505;
+  --card: #0d0d0f;
+  --border: #242426;
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --accent: #ffffff;
+  --accent-secondary: #7c3aed;
 }
 
 * {
@@ -30,7 +30,7 @@ body {
 }
 
 ::selection {
-  background: rgba(56, 189, 248, 0.28);
+  background: rgba(255, 255, 255, 0.2);
   color: var(--text-primary);
 }
 

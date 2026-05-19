@@ -17,19 +17,19 @@ export function Experience() {
               <BentoCard>
                 <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr]">
                   <div>
-                    <div className="mb-5 grid size-12 place-items-center rounded border border-[#38BDF8]/45 bg-[#38BDF8]/10 text-[#38BDF8]">
+                    <div className="mb-5 grid size-12 place-items-center rounded-xl border border-white/10 bg-white/[0.075] text-white">
                       <Icon size={24} />
                     </div>
-                    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#A3E635]">
+                    <p className="text-sm font-medium uppercase tracking-[0.2em] text-zinc-300">
                       {item.company}
                     </p>
-                    <h3 className="mt-3 text-2xl font-semibold text-[#F8FAFC]">{item.role}</h3>
-                    <p className="mt-4 text-sm leading-7 text-[#94A3B8]">{item.summary}</p>
+                    <h3 className="mt-3 text-2xl font-semibold text-white">{item.role}</h3>
+                    <p className="mt-4 text-sm leading-7 text-zinc-400">{item.summary}</p>
                   </div>
                   <div className="grid gap-3 sm:grid-cols-2">
                     {item.bullets.map((bullet) => (
-                      <div key={bullet} className="rounded border border-[#273244] bg-[#0B0F14]/60 p-4">
-                        <p className="text-sm leading-7 text-[#94A3B8]">{bullet}</p>
+                      <div key={bullet} className="rounded-xl border border-white/10 bg-black/30 p-4">
+                        <p className="text-sm leading-7 text-zinc-400">{bullet}</p>
                       </div>
                     ))}
                   </div>

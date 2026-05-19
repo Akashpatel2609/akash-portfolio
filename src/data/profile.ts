@@ -46,7 +46,7 @@ export const profile = {
       "Currently building finance, operations, forecasting, margin, resource planning, and risk analytics workflows using Power BI, SQL, Power Query, SharePoint, Vena, and applied AI.",
     actions: [
       { label: "View Work", href: "#projects", variant: "primary" },
-      { label: "Download Resume", href: "/resume", variant: "secondary" },
+      { label: "Download Resume", href: "https://drive.google.com/file/d/1FANhCK1ZFiM6nL9dZgXHJmaNse3jFmW_/view?usp=sharing", variant: "secondary" },
       { label: "Contact Me", href: "#contact", variant: "ghost" }
     ]
   },
@@ -172,8 +172,8 @@ export const profile = {
         metrics: ["Real-time feedback loop", "Multi-modal analysis", "Containerized delivery"],
         businessImpact:
           "Created a practical applied-AI product that turns mock interviews into actionable coaching sessions.",
-        repository: "GitHub link placeholder",
-        demo: "Demo link placeholder"
+        repository: "https://github.com/Akashpatel2609/PrepWise",
+        demo: "https://github.com/Akashpatel2609/PrepWise"
       }
     },
     {
@@ -225,8 +225,8 @@ export const profile = {
         metrics: ["34.7M records processed", "70% data prep time reduction", "Analysis-ready reporting dataset"],
         businessImpact:
           "Reduced preparation time and enabled faster review trend analysis from large-scale customer feedback.",
-        repository: "GitHub link placeholder",
-        demo: "Dashboard screenshot placeholder"
+        repository: "",
+        demo: "https://app.powerbi.com/groups/me/reports/ad3635ea-f1f3-47f5-a5c2-936a4073bfdd/38e0b2f42920542e9818?experience=power-bi"
       }
     },
     {
@@ -252,8 +252,8 @@ export const profile = {
         metrics: ["Star schema model", "Demand pattern analysis", "Vehicle utilization insights"],
         businessImpact:
           "Identified opportunities to shift underutilized vehicle capacity into higher-demand windows.",
-        repository: "GitHub link placeholder",
-        demo: "Dashboard screenshot placeholder"
+        repository: "",
+        demo: "https://app.powerbi.com/groups/me/reports/70948659-7e73-4758-80e2-a613f72bb106/8d5d9ba8102e05c81dcf?experience=power-bi"
       }
     },
     {
@@ -279,8 +279,8 @@ export const profile = {
         metrics: ["8,000-row HR dataset", "Attrition analysis", "Leadership dashboard"],
         businessImpact:
           "Reduced manual reporting and helped leaders identify workforce attrition patterns faster.",
-        repository: "GitHub link placeholder",
-        demo: "Dashboard screenshot placeholder"
+        repository: "",
+        demo: "https://public.tableau.com/app/profile/akash.patel3574/viz/HR_Dashboard_17407938446160/HRSummary"
       }
     }
   ],
@@ -378,7 +378,7 @@ export const profile = {
     email: "26akashpatel99@gmail.com",
     linkedin: "http://www.linkedin.com/in/akp09",
     github: "https://github.com/Akashpatel2609",
-    resume: "/resume",
+    resume: "https://drive.google.com/file/d/1FANhCK1ZFiM6nL9dZgXHJmaNse3jFmW_/view?usp=sharing",
     links: [
       { label: "Location", value: "Toronto, ON", href: "#contact", icon: MapPin },
       { label: "Email", value: "26akashpatel99@gmail.com", href: "mailto:26akashpatel99@gmail.com", icon: Mail },

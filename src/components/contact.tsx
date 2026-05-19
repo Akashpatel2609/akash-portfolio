@@ -42,6 +42,9 @@ export function Contact() {
               })}
               <a
                 href={profile.contact.resume}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Download Akash Patel resume"
                 className="inline-flex min-h-24 items-center gap-3 rounded-xl border border-white bg-white p-4 text-sm font-semibold text-black shadow-[0_0_36px_rgba(255,255,255,0.18)] transition hover:bg-zinc-200"
               >
                 <Download size={22} />

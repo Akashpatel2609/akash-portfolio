@@ -153,13 +153,36 @@ function CaseBlock({ title, body }: { title: string; body: string }) {
 }
 
 function PlaceholderLink({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex items-start justify-between gap-4 rounded-xl border border-white/10 bg-black/30 p-4">
+  const hasUrl = value.startsWith("http");
+  const content = (
+    <>
       <div>
         <p className="text-sm font-semibold text-white">{label}</p>
-        <p className="mt-1 text-sm text-zinc-400">{value}</p>
+        <p className="mt-1 break-all text-sm text-zinc-400">
+          {value || "Not publicly available"}
+        </p>
       </div>
       <ExternalLink className="shrink-0 text-zinc-500" size={18} />
-    </div>
+    </>
+  );
+
+  if (!hasUrl) {
+    return (
+      <div className="flex items-start justify-between gap-4 rounded-xl border border-white/10 bg-black/30 p-4">
+        {content}
+      </div>
+    );
+  }
+
+  return (
+    <a
+      href={value}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={`Open ${label} for ${value}`}
+      className="flex items-start justify-between gap-4 rounded-xl border border-white/10 bg-black/30 p-4 transition hover:border-white/25 hover:bg-white/[0.055]"
+    >
+      {content}
+    </a>
   );
 }

@@ -45,6 +45,9 @@ export function Hero() {
                 <a
                   key={action.label}
                   href={action.href}
+                  target={action.href.startsWith("http") ? "_blank" : undefined}
+                  rel={action.href.startsWith("http") ? "noreferrer" : undefined}
+                  aria-label={action.label}
                   className={cn(
                     "inline-flex min-h-12 items-center justify-center gap-2 rounded-full border px-5 text-sm font-semibold transition",
                     action.variant === "primary" &&

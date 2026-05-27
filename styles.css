@@ -1433,11 +1433,15 @@ body {
 
 .brand-mark {
   background: #fffdf8;
+  border-radius: 18px;
+  height: 62px;
+  object-fit: cover;
+  padding: 0;
   box-shadow:
     6px 8px 16px rgba(30, 30, 58, 0.1),
     inset 4px 4px 8px rgba(255, 255, 255, 0.78),
     inset -5px -5px 10px rgba(30, 30, 58, 0.12);
-  padding: 4px;
+  width: 62px;
 }
 
 .brand p,

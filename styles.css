@@ -1432,16 +1432,14 @@ body {
 }
 
 .brand-mark {
-  background: #fffdf8;
-  border-radius: 18px;
-  height: 62px;
-  object-fit: cover;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  filter: drop-shadow(5px 9px 9px rgba(30, 30, 58, 0.16));
+  height: 66px;
+  object-fit: contain;
   padding: 0;
-  box-shadow:
-    6px 8px 16px rgba(30, 30, 58, 0.1),
-    inset 4px 4px 8px rgba(255, 255, 255, 0.78),
-    inset -5px -5px 10px rgba(30, 30, 58, 0.12);
-  width: 62px;
+  width: 66px;
 }
 
 .brand p,

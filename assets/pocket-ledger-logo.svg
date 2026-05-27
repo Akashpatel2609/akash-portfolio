@@ -1,11 +1,50 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
   <title id="title">Pocket Ledger logo</title>
-  <desc id="desc">A black circular fintech mark with yellow ledger bars and a pocket curve.</desc>
-  <rect width="512" height="512" rx="128" fill="#FDE047"/>
-  <circle cx="256" cy="256" r="178" fill="#0A0A0A"/>
-  <path d="M149 310c31 44 83 72 143 72 72 0 134-44 160-107-33 25-81 41-135 41H190c-15 0-29-2-41-6Z" fill="#FDE047" opacity=".92"/>
-  <rect x="158" y="214" width="36" height="112" rx="18" fill="#FDE047"/>
-  <rect x="222" y="164" width="36" height="162" rx="18" fill="#FDE047"/>
-  <rect x="286" y="196" width="36" height="130" rx="18" fill="#FDE047"/>
-  <path d="M352 157c0-16 13-29 29-29h1c16 0 29 13 29 29v95c0 16-13 29-29 29h-1c-16 0-29-13-29-29v-95Z" fill="#FDE047"/>
+  <desc id="desc">A soft claymorphic personal finance mark with puffy ledger bars and a molded pocket curve.</desc>
+  <defs>
+    <linearGradient id="base" x1="92" y1="74" x2="432" y2="438" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FDFBFF"/>
+      <stop offset=".46" stop-color="#D9DDFF"/>
+      <stop offset="1" stop-color="#F9F9FC"/>
+    </linearGradient>
+    <linearGradient id="face" x1="152" y1="118" x2="372" y2="402" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset=".48" stop-color="#F7F8FF"/>
+      <stop offset="1" stop-color="#DDE5FF"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="168" y1="154" x2="360" y2="350" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFF2A8"/>
+      <stop offset=".52" stop-color="#FFD86B"/>
+      <stop offset="1" stop-color="#F4B946"/>
+    </linearGradient>
+    <linearGradient id="mint" x1="130" y1="198" x2="230" y2="330" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#BAF8DE"/>
+      <stop offset="1" stop-color="#4BD1A0"/>
+    </linearGradient>
+    <linearGradient id="coral" x1="312" y1="138" x2="418" y2="284" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFB5C6"/>
+      <stop offset="1" stop-color="#FF6B8B"/>
+    </linearGradient>
+    <filter id="outerClay" x="-12%" y="-12%" width="124%" height="128%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="14" dy="18" stdDeviation="17" flood-color="#1E1E3A" flood-opacity=".16"/>
+      <feDropShadow dx="-7" dy="-8" stdDeviation="10" flood-color="#FFFFFF" flood-opacity=".9"/>
+    </filter>
+    <filter id="innerSoft" x="-18%" y="-18%" width="136%" height="136%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="8" dy="10" stdDeviation="9" flood-color="#1E1E3A" flood-opacity=".13"/>
+      <feDropShadow dx="-5" dy="-6" stdDeviation="7" flood-color="#FFFFFF" flood-opacity=".78"/>
+    </filter>
+    <filter id="tokenShadow" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="7" dy="9" stdDeviation="8" flood-color="#A66F00" flood-opacity=".2"/>
+      <feDropShadow dx="-4" dy="-5" stdDeviation="6" flood-color="#FFFFFF" flood-opacity=".7"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="136" fill="url(#base)"/>
+  <path d="M76 76c59-48 177-57 264-22 81 33 120 108 115 192-6 103-74 176-178 196-85 16-177-11-218-82-47-81-37-220 17-284Z" fill="#FFFFFF" opacity=".48"/>
+  <circle cx="256" cy="256" r="178" fill="url(#face)" filter="url(#outerClay)"/>
+  <path d="M133 306c29 57 88 96 156 96 80 0 149-55 169-130-34 32-86 52-147 52H185c-19 0-37-7-52-18Z" fill="#8A9FFF" opacity=".82" filter="url(#innerSoft)"/>
+  <rect x="148" y="214" width="46" height="118" rx="23" fill="url(#mint)" filter="url(#tokenShadow)"/>
+  <rect x="218" y="158" width="48" height="174" rx="24" fill="url(#gold)" filter="url(#tokenShadow)"/>
+  <rect x="290" y="194" width="48" height="138" rx="24" fill="#8A9FFF" filter="url(#tokenShadow)"/>
+  <path d="M358 156c0-18 15-33 33-33s33 15 33 33v96c0 18-15 33-33 33s-33-15-33-33v-96Z" fill="url(#coral)" filter="url(#tokenShadow)"/>
+  <path d="M164 229c0-7 6-13 13-13s13 6 13 13v86c0 7-6 13-13 13s-13-6-13-13v-86Zm70-54c0-7 6-13 13-13s13 6 13 13v140c0 7-6 13-13 13s-13-6-13-13V175Zm72 36c0-7 6-13 13-13s13 6 13 13v104c0 7-6 13-13 13s-13-6-13-13V211Zm69-39c0-8 6-14 14-14s14 6 14 14v62c0 8-6 14-14 14s-14-6-14-14v-62Z" fill="#FFFFFF" opacity=".3"/>
 </svg>

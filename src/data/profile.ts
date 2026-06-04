@@ -26,6 +26,7 @@ export const profile = {
     image: "/images/akash-patel-profile.png"
   },
   nav: [
+    { label: "Pipeline", href: "/#pipeline" },
     { label: "About", href: "/#about" },
     { label: "Experience", href: "/#experience" },
     { label: "Projects", href: "/#projects" },
@@ -45,9 +46,9 @@ export const profile = {
     subheadline:
       "Currently building finance, operations, forecasting, margin, resource planning, and risk analytics workflows using Power BI, SQL, Power Query, SharePoint, Vena, and applied AI.",
     actions: [
-      { label: "View Work", href: "#projects", variant: "primary" },
+      { label: "View Work", href: "/#projects", variant: "primary" },
       { label: "Download Resume", href: "https://drive.google.com/file/d/1FANhCK1ZFiM6nL9dZgXHJmaNse3jFmW_/view?usp=sharing", variant: "secondary" },
-      { label: "Contact Me", href: "#contact", variant: "ghost" }
+      { label: "Contact Me", href: "/#contact", variant: "ghost" }
     ]
   },
   impactMetrics: [
@@ -56,7 +57,57 @@ export const profile = {
     { value: "34.7M", label: "Records processed" },
     { value: "70%", label: "Data prep time reduced" }
   ],
+  techMarquee: [
+    "Power BI",
+    "DAX",
+    "SQL",
+    "Python",
+    "Power Query",
+    "Vena",
+    "SharePoint",
+    "FastAPI",
+    "Docker",
+    "Whisper",
+    "MediaPipe",
+    "SSIS",
+    "Tableau",
+    "Star Schema",
+    "ETL",
+    "Applied AI"
+  ],
+  pipelineLayers: [
+    {
+      layer: "Bronze Layer",
+      title: "Raw Learning + Data Foundations",
+      description:
+        "Engineering education, applied AI training, SQL/Python foundations, and hands-on exposure to messy operational datasets.",
+      signal: "Education / fundamentals / raw datasets",
+      items: ["Applied AI diploma", "Engineering graduate studies", "SQL + Python", "Data modeling"]
+    },
+    {
+      layer: "Silver Layer",
+      title: "Transformed Systems in Production",
+      description:
+        "Power BI, Power Query, SharePoint, Vena, and ETL workflows that convert scattered reporting inputs into reliable refresh-ready assets.",
+      signal: "Automation / modeling / dashboards",
+      items: ["10+ dashboards", "6-8 hrs/week saved", "Vena ETL", "Operational KPI workflows"]
+    },
+    {
+      layer: "Gold Layer",
+      title: "Executive-Ready Decision Products",
+      description:
+        "Leadership dashboards, forecasting workflows, risk analytics, and applied AI tools that turn analytics work into decisions.",
+      signal: "Business impact / leadership visibility",
+      items: ["Forecasting", "Margin analytics", "Risk workflows", "AI feedback systems"]
+    }
+  ],
   sections: {
+    pipeline: {
+      id: "pipeline",
+      label: "Portfolio Pipeline",
+      eyebrow: "Portfolio pipeline",
+      title: "A data portfolio structured like a production analytics pipeline."
+    },
     impact: {
       id: "impact",
       label: "Impact Metrics",

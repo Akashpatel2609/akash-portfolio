@@ -10,7 +10,7 @@ export function Header() {
       initial={{ opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-[#050505]/70 backdrop-blur-2xl"
+      className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-black/55 backdrop-blur-2xl"
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <a href={profile.seo.canonical} className="flex items-center gap-3 text-sm font-semibold text-white">
@@ -31,7 +31,7 @@ export function Header() {
             <a
               key={item.label}
               href={item.href}
-              className="text-sm text-zinc-400 transition hover:text-white"
+              className="rounded-full px-3 py-2 text-sm text-zinc-400 transition hover:bg-white/[0.06] hover:text-white"
             >
               {item.label}
             </a>

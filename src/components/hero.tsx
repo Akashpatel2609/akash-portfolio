@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowDownRight, Download, Mail } from "lucide-react";
+import { ArrowDownRight, Download, Mail, RadioTower } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { profile } from "@/data/profile";
@@ -12,140 +12,165 @@ const iconMap = {
   "Contact Me": Mail
 };
 
+const pipelineSteps = ["source", "transform", "model", "dashboard", "decision"];
+
 export function Hero() {
   return (
-    <section id="top" className="relative min-h-[94vh] overflow-hidden pt-32 sm:pt-36">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1.02fr_0.98fr] lg:px-8">
+    <section id="top" className="relative overflow-hidden pt-24 sm:pt-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col justify-center"
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="relative min-h-[calc(100vh-7rem)] overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/45 shadow-xl shadow-black/40 backdrop-blur-md sm:rounded-[2rem]"
         >
-          <p className="mb-5 w-fit rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-xs font-medium uppercase tracking-[0.24em] text-zinc-300 shadow-2xl shadow-white/5">
-            {profile.hero.eyebrow}
-          </p>
-          <h1 className="max-w-5xl text-6xl font-semibold leading-[0.94] text-white sm:text-7xl lg:text-8xl">
-            {profile.hero.name}
-          </h1>
-          <p className="mt-4 text-lg font-medium text-zinc-300 sm:text-xl">
-            {profile.hero.title}
-          </p>
-          <p className="mt-6 max-w-4xl text-2xl font-medium leading-tight text-white sm:text-4xl">
-            {profile.hero.headline}
-          </p>
-          <p className="mt-5 max-w-3xl text-base leading-8 text-zinc-400 sm:text-lg">
-            {profile.hero.subheadline}
-          </p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            {profile.hero.actions.map((action) => {
-              const Icon = iconMap[action.label as keyof typeof iconMap];
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_18%,rgba(255,255,255,0.16),transparent_26%),radial-gradient(circle_at_85%_25%,rgba(124,58,237,0.22),transparent_28%),linear-gradient(135deg,rgba(255,255,255,0.08),transparent_36%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:linear-gradient(to_bottom,black,transparent_86%)]" />
 
-              return (
-                <a
-                  key={action.label}
-                  href={action.href}
-                  target={action.href.startsWith("http") ? "_blank" : undefined}
-                  rel={action.href.startsWith("http") ? "noreferrer" : undefined}
-                  aria-label={action.label}
-                  className={cn(
-                    "inline-flex min-h-12 items-center justify-center gap-2 rounded-full border px-5 text-sm font-semibold transition",
-                    action.variant === "primary" &&
-                      "border-white bg-white text-black shadow-[0_0_40px_rgba(255,255,255,0.22)] hover:bg-zinc-200",
-                    action.variant === "secondary" &&
-                      "border-white/12 bg-white/[0.07] text-white hover:border-white/30 hover:bg-white/[0.1]",
-                    action.variant === "ghost" &&
-                      "border-transparent text-zinc-400 hover:border-white/10 hover:text-white"
-                  )}
-                >
-                  <Icon size={17} />
-                  {action.label}
-                </a>
-              );
-            })}
-          </div>
-        </motion.div>
+          <div className="relative grid min-h-[calc(100vh-7rem)] lg:grid-cols-[1.02fr_0.98fr]">
+            <div className="flex flex-col justify-between border-b border-white/10 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
+              <div>
+                <div className="mb-8 flex flex-wrap items-center gap-3">
+                  <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.065] px-4 py-2 text-xs font-medium uppercase tracking-[0.22em] text-zinc-300">
+                    <span className="size-2 rounded-full bg-white shadow-[0_0_16px_rgba(255,255,255,0.95)]" />
+                    Open to roles
+                  </span>
+                  <span className="rounded-full border border-violet-400/20 bg-violet-400/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.22em] text-violet-200">
+                    Toronto / Analytics Systems
+                  </span>
+                </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className="relative min-h-[34rem] rounded-[1.35rem] border border-white/10 bg-white/[0.055] p-4 shadow-2xl shadow-black/40 backdrop-blur-2xl"
-        >
-          <div className="absolute inset-0 rounded-[1.35rem] bg-[radial-gradient(circle_at_15%_15%,rgba(255,255,255,0.17),transparent_30%),radial-gradient(circle_at_85%_70%,rgba(124,58,237,0.18),transparent_34%)]" />
-          <div className="relative grid h-full grid-rows-[auto_auto_1fr] gap-4">
-            <div className="flex items-center justify-between border-b border-white/10 pb-4">
-              <span className="text-xs font-medium uppercase tracking-[0.22em] text-zinc-400">
-                {profile.hero.dashboardLabel}
-              </span>
-              <span className="size-2 rounded-full bg-white shadow-[0_0_18px_rgba(255,255,255,0.9)]" />
-            </div>
-            <div className="grid gap-4 sm:grid-cols-[0.72fr_1fr]">
-              <div className="relative min-h-56 overflow-hidden rounded-2xl border border-white/10 bg-black/35 shadow-[0_0_50px_rgba(255,255,255,0.08)]">
-                <Image
-                  src={profile.hero.profileImage}
-                  alt={profile.hero.profileImageAlt}
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 260px, 100vw"
-                  className="object-cover"
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                {profile.impactMetrics.map((stat) => (
-                  <div key={stat.label} className="rounded-xl border border-white/10 bg-black/35 p-4">
-                    <p className="text-2xl font-semibold text-white">{stat.value}</p>
-                    <p className="mt-2 text-xs leading-5 text-zinc-400">{stat.label}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="grid grid-cols-6 grid-rows-6 gap-3">
-              <div className="col-span-4 row-span-3 rounded-xl border border-white/10 bg-black/35 p-4">
-                <div className="mb-4 h-2 w-20 rounded-full bg-white/70" />
-                <div className="flex h-28 items-end gap-2">
-                  {[38, 54, 42, 76, 64, 88, 70].map((height) => (
-                    <motion.span
-                      key={height}
-                      className="flex-1 rounded-t bg-gradient-to-t from-white/35 to-white"
-                      initial={{ height: 8 }}
-                      animate={{ height }}
-                      transition={{ duration: 1, delay: height / 180 }}
-                    />
-                  ))}
+                <div className="max-w-4xl">
+                  <p className="mb-4 font-mono text-sm uppercase tracking-[0.26em] text-zinc-500">
+                    ./akash-patel --portfolio
+                  </p>
+                  <h1 className="text-5xl font-semibold leading-[0.9] tracking-[-0.04em] text-white sm:text-7xl lg:text-8xl">
+                    {profile.hero.name}
+                  </h1>
+                  <p className="mt-5 text-xl font-medium text-zinc-300 sm:text-2xl">
+                    {profile.hero.title}
+                  </p>
+                  <p className="mt-8 max-w-3xl text-2xl font-medium leading-tight tracking-[-0.02em] text-white sm:text-4xl">
+                    {profile.hero.headline}
+                  </p>
+                  <p className="mt-6 max-w-3xl text-base leading-8 text-zinc-400 sm:text-lg">
+                    {profile.hero.subheadline}
+                  </p>
                 </div>
-              </div>
-              <div className="col-span-2 row-span-3 rounded-xl border border-white/10 bg-black/35 p-4">
-                <div className="mx-auto mt-4 grid size-24 place-items-center rounded-full border border-white/20 bg-white/[0.06] text-xl font-semibold text-white shadow-[inset_0_0_40px_rgba(255,255,255,0.06)]">
-                  {profile.impactMetrics[3].value}
-                </div>
-              </div>
-              <div className="col-span-3 row-span-3 rounded-xl border border-white/10 bg-black/35 p-4">
-                <div className="grid h-full grid-cols-3 gap-2">
-                  {Array.from({ length: 15 }).map((_, index) => (
-                    <span
-                      key={index}
-                      className={cn(
-                        "rounded border border-white/10 bg-white/[0.04]",
-                        index % 4 === 0 && "bg-[#7C3AED]/25",
-                        index % 5 === 0 && "bg-white/15"
-                      )}
-                    />
-                  ))}
-                </div>
-              </div>
-              <div className="col-span-3 row-span-3 rounded-xl border border-white/10 bg-black/35 p-4">
-                <div className="space-y-3">
-                  {[profile.hero.headline, profile.hero.subheadline].map((text, index) => (
-                    <div key={text} className="space-y-2">
-                      <div className="h-2 rounded-full bg-white/12" />
-                      <div
+
+                <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                  {profile.hero.actions.map((action) => {
+                    const Icon = iconMap[action.label as keyof typeof iconMap];
+
+                    return (
+                      <a
+                        key={action.label}
+                        href={action.href}
+                        target={action.href.startsWith("http") ? "_blank" : undefined}
+                        rel={action.href.startsWith("http") ? "noreferrer" : undefined}
+                        aria-label={action.label}
                         className={cn(
-                          "h-2 rounded-full bg-white/12",
-                          index === 0 ? "w-10/12" : "w-8/12"
+                          "inline-flex min-h-12 items-center justify-center gap-2 rounded-full border px-5 text-sm font-semibold transition",
+                          action.variant === "primary" &&
+                            "border-white bg-white text-black shadow-[0_0_40px_rgba(255,255,255,0.22)] hover:bg-zinc-200",
+                          action.variant === "secondary" &&
+                            "border-white/12 bg-white/[0.07] text-white hover:border-white/30 hover:bg-white/[0.1]",
+                          action.variant === "ghost" &&
+                            "border-transparent text-zinc-400 hover:border-white/10 hover:text-white"
                         )}
-                      />
+                      >
+                        <Icon size={17} />
+                        {action.label}
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="mt-12 grid gap-3 rounded-2xl border border-white/10 bg-black/50 p-4 font-mono text-xs text-zinc-400">
+                <p>
+                  <span className="text-white">system</span> boot: recruiter_profile loaded
+                </p>
+                <p>
+                  mode: <span className="text-white">BI + data engineering + applied AI</span>
+                </p>
+                <p>
+                  output: <span className="text-white">dashboards / pipelines / decision systems</span>
+                </p>
+              </div>
+            </div>
+
+            <div className="grid gap-4 p-6 sm:p-8 lg:p-10">
+              <div className="grid gap-4 sm:grid-cols-[0.78fr_1fr]">
+                <div className="relative min-h-72 overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.04]">
+                  <Image
+                    src={profile.hero.profileImage}
+                    alt={profile.hero.profileImageAlt}
+                    fill
+                    priority
+                    sizes="(min-width: 1024px) 320px, 100vw"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                    <p className="text-sm font-semibold text-white">Akash Patel</p>
+                    <p className="text-xs text-zinc-400">Toronto, ON</p>
+                  </div>
+                </div>
+
+                <div className="grid gap-3">
+                  {profile.impactMetrics.map((metric) => (
+                    <div
+                      key={metric.label}
+                      className="rounded-2xl border border-white/10 bg-black/45 p-4 shadow-xl shadow-black/20"
+                    >
+                      <p className="text-3xl font-semibold tracking-[-0.03em] text-white">
+                        {metric.value}
+                      </p>
+                      <p className="mt-2 text-xs leading-5 text-zinc-400">{metric.label}</p>
                     </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="rounded-[1.5rem] border border-white/10 bg-black/50 p-5">
+                <div className="mb-5 flex items-center justify-between">
+                  <div>
+                    <p className="font-mono text-xs uppercase tracking-[0.22em] text-zinc-500">
+                      data product lifecycle
+                    </p>
+                    <p className="mt-2 text-lg font-semibold text-white">
+                      Fragmented data to executive action
+                    </p>
+                  </div>
+                  <RadioTower className="text-violet-200" size={22} />
+                </div>
+
+                <div className="grid gap-3">
+                  {pipelineSteps.map((step, index) => (
+                    <motion.div
+                      key={step}
+                      initial={{ opacity: 0, x: 10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.35, delay: 0.08 + index * 0.045 }}
+                      className="grid grid-cols-[auto_1fr_auto] items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.035] p-3"
+                    >
+                      <span className="grid size-8 place-items-center rounded-full bg-white text-xs font-semibold text-black">
+                        {index + 1}
+                      </span>
+                      <div>
+                        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-white">
+                          {step}
+                        </p>
+                        <p className="mt-1 text-xs text-zinc-500">
+                          {index === 0 && "Excel / SQL / JSON / SharePoint / Vena"}
+                          {index === 1 && "Power Query / SSIS / ETL / Python"}
+                          {index === 2 && "DAX / star schema / semantic models"}
+                          {index === 3 && "Power BI / Tableau / executive reporting"}
+                          {index === 4 && "forecasting / margin / risk / operations"}
+                        </p>
+                      </div>
+                      <span className="h-px w-10 bg-gradient-to-r from-white to-violet-400" />
+                    </motion.div>
                   ))}
                 </div>
               </div>

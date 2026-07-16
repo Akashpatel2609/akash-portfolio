@@ -12,9 +12,9 @@ interface GridGlowBackgroundProps {
 
 export function GridGlowBackground({
   backgroundColor = "#030303",
-  gridColor = "rgba(124, 58, 237, 0.04)",
+  gridColor = "rgba(124, 58, 237, 0.12)",
   gridSize = 48,
-  glowColors = ["rgba(124, 58, 237, 0.12)", "rgba(99, 102, 241, 0.12)", "rgba(236, 72, 153, 0.08)"],
+  glowColors = ["rgba(124, 58, 237, 0.35)", "rgba(99, 102, 241, 0.35)", "rgba(236, 72, 153, 0.25)"],
   glowCount = 8,
 }: GridGlowBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);

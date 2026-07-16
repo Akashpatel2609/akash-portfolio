@@ -19,6 +19,7 @@ html {
   scroll-behavior: smooth;
   background: var(--background);
   text-size-adjust: 100%;
+  overflow-y: auto;
 }
 
 body {
@@ -30,7 +31,9 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  overflow-y: auto;
 }
+
 
 /* Custom Selection styling */
 ::selection {

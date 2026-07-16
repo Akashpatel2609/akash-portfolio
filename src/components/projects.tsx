@@ -68,7 +68,7 @@ export function Projects() {
                   <a
                     href={`/projects/${project.slug}`}
                     aria-label={`${project.cta}: ${project.title}`}
-                    className="mt-7 inline-flex min-h-11 w-fit items-center gap-2 rounded-full border border-white/10 bg-white text-sm font-semibold text-black px-4 transition hover:bg-zinc-200"
+                    className="mt-7 inline-flex min-h-12 w-fit items-center gap-2 rounded-full border border-white/10 bg-white text-sm font-semibold text-black px-5 transition hover:bg-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                   >
                     Open Case Study
                     <ArrowUpRight size={16} />

@@ -2,13 +2,13 @@
 
 :root {
   color-scheme: dark;
-  --background: #050505;
+  --background: #030303;
   --card: #0d0d0f;
   --border: #242426;
   --text-primary: #ffffff;
   --text-secondary: #a1a1aa;
-  --accent: #ffffff;
-  --accent-secondary: #7c3aed;
+  --accent: #7c3aed;
+  --accent-secondary: #ec4899;
 }
 
 * {
@@ -29,12 +29,40 @@ body {
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  overscroll-behavior-y: none;
+  overflow-x: hidden;
 }
 
+/* Custom Selection styling */
 ::selection {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(124, 58, 237, 0.3);
   color: var(--text-primary);
+}
+
+/* Accessible focus visible outlines */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* Custom Scrollbar for immersive styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1a1a24;
+  border-radius: 9999px;
+  border: 2px solid #050505;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7c3aed;
 }
 
 a {

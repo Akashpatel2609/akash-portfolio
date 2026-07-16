@@ -1,10 +1,11 @@
 "use client";
 
-import { ArrowDownRight, Download, Mail, RadioTower } from "lucide-react";
+import { ArrowDownRight, Download, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { profile } from "@/data/profile";
 import { cn } from "@/lib/utils";
+import { PipelineTerminal } from "@/components/pipeline-terminal";
 
 const iconMap = {
   "View Work": ArrowDownRight,
@@ -12,53 +13,96 @@ const iconMap = {
   "Contact Me": Mail
 };
 
-const pipelineSteps = ["source", "transform", "model", "dashboard", "decision"];
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1,
+    },
+  },
+} as const;
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring" as const,
+      damping: 25,
+      stiffness: 140,
+    },
+  },
+};
+
+const imageContainerVariants = {
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      type: "spring" as const,
+      damping: 20,
+      stiffness: 100,
+      delay: 0.3,
+    },
+  },
+};
+
 
 export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden pt-24 sm:pt-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="relative min-h-[calc(100vh-7rem)] overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/45 shadow-xl shadow-black/40 backdrop-blur-md sm:rounded-[2rem]"
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+          className="relative min-h-[calc(100vh-7rem)] overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-950/40 shadow-2xl backdrop-blur-md"
         >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_18%,rgba(255,255,255,0.16),transparent_26%),radial-gradient(circle_at_85%_25%,rgba(124,58,237,0.22),transparent_28%),linear-gradient(135deg,rgba(255,255,255,0.08),transparent_36%)]" />
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:linear-gradient(to_bottom,black,transparent_86%)]" />
+          {/* Futuristic background lighting */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_18%,rgba(124,58,237,0.12),transparent_26%),radial-gradient(circle_at_85%_25%,rgba(236,72,153,0.12),transparent_28%),linear-gradient(135deg,rgba(124,58,237,0.05),transparent_36%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:linear-gradient(to_bottom,black,transparent_86%)]" />
 
-          <div className="relative grid min-h-[calc(100vh-7rem)] lg:grid-cols-[1.02fr_0.98fr]">
-            <div className="flex flex-col justify-between border-b border-white/10 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
-              <div>
-                <div className="mb-8 flex flex-wrap items-center gap-3">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.065] px-4 py-2 text-xs font-medium uppercase tracking-[0.22em] text-zinc-300">
-                    <span className="size-2 rounded-full bg-white shadow-[0_0_16px_rgba(255,255,255,0.95)]" />
+          <div className="relative grid min-h-[calc(100vh-7rem)] lg:grid-cols-[1.1fr_0.9fr] items-center">
+            {/* Left Content (Text & Call-to-actions) */}
+            <div className="flex flex-col justify-between border-b border-white/10 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-12 h-full">
+              <motion.div variants={containerVariants} className="space-y-6">
+                <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-3">
+                  <span className="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-200">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-violet-500"></span>
+                    </span>
                     Open to roles
                   </span>
-                  <span className="rounded-full border border-violet-400/20 bg-violet-400/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.22em] text-violet-200">
+                  <span className="rounded-full border border-pink-500/20 bg-pink-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-pink-300">
                     Toronto / Analytics Systems
                   </span>
-                </div>
+                </motion.div>
 
-                <div className="max-w-4xl">
-                  <p className="mb-4 font-mono text-sm uppercase tracking-[0.26em] text-zinc-500">
+                <motion.div variants={itemVariants} className="max-w-4xl space-y-4">
+                  <p className="font-mono text-sm uppercase tracking-[0.26em] text-violet-400">
                     ./akash-patel --portfolio
                   </p>
-                  <h1 className="text-5xl font-semibold leading-[0.9] tracking-[-0.04em] text-white sm:text-7xl lg:text-8xl">
+                  <h1 className="text-5xl font-bold leading-[0.95] tracking-[-0.04em] text-white sm:text-7xl lg:text-8xl bg-clip-text text-transparent bg-gradient-to-r from-white via-zinc-100 to-zinc-400">
                     {profile.hero.name}
                   </h1>
-                  <p className="mt-5 text-xl font-medium text-zinc-300 sm:text-2xl">
+                  <p className="text-xl font-medium text-zinc-300 sm:text-2xl">
                     {profile.hero.title}
                   </p>
-                  <p className="mt-8 max-w-3xl text-2xl font-medium leading-tight tracking-[-0.02em] text-white sm:text-4xl">
+                  <p className="text-2xl font-semibold leading-tight tracking-[-0.02em] text-white sm:text-4xl bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-400">
                     {profile.hero.headline}
                   </p>
-                  <p className="mt-6 max-w-3xl text-base leading-8 text-zinc-400 sm:text-lg">
+                  <p className="text-base leading-8 text-zinc-400 sm:text-lg">
                     {profile.hero.subheadline}
                   </p>
-                </div>
+                </motion.div>
 
-                <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <motion.div variants={itemVariants} className="flex flex-col gap-3 sm:flex-row pt-4">
                   {profile.hero.actions.map((action) => {
                     const Icon = iconMap[action.label as keyof typeof iconMap];
 
@@ -70,110 +114,77 @@ export function Hero() {
                         rel={action.href.startsWith("http") ? "noreferrer" : undefined}
                         aria-label={action.label}
                         className={cn(
-                          "inline-flex min-h-12 items-center justify-center gap-2 rounded-full border px-5 text-sm font-semibold transition",
+                          "inline-flex min-h-12 items-center justify-center gap-2 rounded-full border px-6 text-sm font-semibold transition-all duration-300 transform hover:scale-[1.03]",
                           action.variant === "primary" &&
-                            "border-white bg-white text-black shadow-[0_0_40px_rgba(255,255,255,0.22)] hover:bg-zinc-200",
+                            "border-white bg-white text-black shadow-[0_0_30px_rgba(255,255,255,0.25)] hover:bg-zinc-200",
                           action.variant === "secondary" &&
-                            "border-white/12 bg-white/[0.07] text-white hover:border-white/30 hover:bg-white/[0.1]",
+                            "border-white/10 bg-zinc-900 text-white hover:border-white/30 hover:bg-white/[0.05]",
                           action.variant === "ghost" &&
                             "border-transparent text-zinc-400 hover:border-white/10 hover:text-white"
                         )}
                       >
-                        <Icon size={17} />
+                        <Icon size={16} />
                         {action.label}
                       </a>
                     );
                   })}
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
 
-              <div className="mt-12 grid gap-3 rounded-2xl border border-white/10 bg-black/50 p-4 font-mono text-xs text-zinc-400">
-                <p>
-                  <span className="text-white">system</span> boot: recruiter_profile loaded
-                </p>
-                <p>
-                  mode: <span className="text-white">BI + data engineering + applied AI</span>
-                </p>
-                <p>
-                  output: <span className="text-white">dashboards / pipelines / decision systems</span>
-                </p>
-              </div>
+              <motion.div 
+                variants={itemVariants} 
+                className="mt-12 grid gap-3 rounded-2xl border border-white/5 bg-zinc-950/50 p-4 font-mono text-xs text-zinc-500"
+              >
+                <p><span className="text-violet-400">system</span> boot: recruiter_profile loaded</p>
+                <p>mode: <span className="text-white">BI + data engineering + applied AI</span></p>
+                <p>output: <span className="text-white">dashboards / pipelines / decision systems</span></p>
+              </motion.div>
             </div>
 
-            <div className="grid gap-4 p-6 sm:p-8 lg:p-10">
-              <div className="grid gap-4 sm:grid-cols-[0.78fr_1fr]">
-                <div className="relative min-h-72 overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.04]">
+            {/* Right Content (Picture & Terminal Simulator) */}
+            <div className="grid gap-6 p-6 sm:p-8 lg:p-12">
+              <motion.div 
+                variants={imageContainerVariants}
+                className="grid gap-4 sm:grid-cols-[0.7fr_1fr]"
+              >
+                {/* Profile Image card */}
+                <div className="relative min-h-60 overflow-hidden rounded-2xl border border-white/10 bg-zinc-900 group shadow-lg">
                   <Image
                     src={profile.hero.profileImage}
                     alt={profile.hero.profileImageAlt}
                     fill
                     priority
-                    sizes="(min-width: 1024px) 320px, 100vw"
-                    className="object-cover"
+                    sizes="(min-width: 1024px) 240px, 100vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-4">
                     <p className="text-sm font-semibold text-white">Akash Patel</p>
                     <p className="text-xs text-zinc-400">Toronto, ON</p>
                   </div>
                 </div>
 
+                {/* Grid metrics */}
                 <div className="grid gap-3">
-                  {profile.impactMetrics.map((metric) => (
-                    <div
+                  {profile.impactMetrics.map((metric, i) => (
+                    <motion.div
                       key={metric.label}
-                      className="rounded-2xl border border-white/10 bg-black/45 p-4 shadow-xl shadow-black/20"
+                      variants={itemVariants}
+                      custom={i}
+                      className="rounded-2xl border border-white/5 bg-zinc-900/40 p-4 shadow-md hover:border-violet-500/20 hover:bg-zinc-900/60 transition duration-300"
                     >
-                      <p className="text-3xl font-semibold tracking-[-0.03em] text-white">
+                      <p className="text-2xl font-bold tracking-tight text-white bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-400">
                         {metric.value}
                       </p>
-                      <p className="mt-2 text-xs leading-5 text-zinc-400">{metric.label}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="rounded-[1.5rem] border border-white/10 bg-black/50 p-5">
-                <div className="mb-5 flex items-center justify-between">
-                  <div>
-                    <p className="font-mono text-xs uppercase tracking-[0.22em] text-zinc-500">
-                      data product lifecycle
-                    </p>
-                    <p className="mt-2 text-lg font-semibold text-white">
-                      Fragmented data to executive action
-                    </p>
-                  </div>
-                  <RadioTower className="text-violet-200" size={22} />
-                </div>
-
-                <div className="grid gap-3">
-                  {pipelineSteps.map((step, index) => (
-                    <motion.div
-                      key={step}
-                      initial={{ opacity: 0, x: 10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.35, delay: 0.08 + index * 0.045 }}
-                      className="grid grid-cols-[auto_1fr_auto] items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.035] p-3"
-                    >
-                      <span className="grid size-8 place-items-center rounded-full bg-white text-xs font-semibold text-black">
-                        {index + 1}
-                      </span>
-                      <div>
-                        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-white">
-                          {step}
-                        </p>
-                        <p className="mt-1 text-xs text-zinc-500">
-                          {index === 0 && "Excel / SQL / JSON / SharePoint / Vena"}
-                          {index === 1 && "Power Query / SSIS / ETL / Python"}
-                          {index === 2 && "DAX / star schema / semantic models"}
-                          {index === 3 && "Power BI / Tableau / executive reporting"}
-                          {index === 4 && "forecasting / margin / risk / operations"}
-                        </p>
-                      </div>
-                      <span className="h-px w-10 bg-gradient-to-r from-white to-violet-400" />
+                      <p className="mt-1 text-[11px] leading-4 text-zinc-400">{metric.label}</p>
                     </motion.div>
                   ))}
                 </div>
-              </div>
+              </motion.div>
+
+              {/* Pipeline Terminal Simulator */}
+              <motion.div variants={itemVariants} className="w-full">
+                <PipelineTerminal />
+              </motion.div>
             </div>
           </div>
         </motion.div>

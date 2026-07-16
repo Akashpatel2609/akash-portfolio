@@ -32,7 +32,7 @@ export function Contact() {
                     href={link.href}
                     target={link.href.startsWith("http") ? "_blank" : undefined}
                     rel={link.href.startsWith("http") ? "noreferrer" : undefined}
-                    className="rounded-xl border border-white/10 bg-black/30 p-4 transition hover:border-white/25 hover:bg-white/[0.055]"
+                    className="rounded-xl border border-white/10 bg-black/30 p-4 transition hover:border-white/25 hover:bg-white/[0.055] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                   >
                     <Icon className="mb-4 text-white" size={22} />
                     <p className="text-sm font-semibold text-white">{link.label}</p>
@@ -45,7 +45,7 @@ export function Contact() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Download Akash Patel resume"
-                className="inline-flex min-h-24 items-center gap-3 rounded-xl border border-white bg-white p-4 text-sm font-semibold text-black shadow-[0_0_36px_rgba(255,255,255,0.18)] transition hover:bg-zinc-200"
+                className="inline-flex min-h-24 items-center gap-3 rounded-xl border border-white bg-white p-4 text-sm font-semibold text-black shadow-[0_0_36px_rgba(255,255,255,0.18)] transition hover:bg-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
               >
                 <Download size={22} />
                 {profile.hero.actions[1].label}

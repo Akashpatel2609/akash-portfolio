@@ -4,6 +4,7 @@ import { AnimatedBackground } from "@/components/animated-background";
 import { Header } from "@/components/header";
 import { profile } from "@/data/profile";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const syne = Syne({
@@ -57,6 +58,7 @@ export default function RootLayout({
           <Header />
           {children}
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );

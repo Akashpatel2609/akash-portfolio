@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowDownRight, Download, Mail, ChevronDown } from "lucide-react";
+import { ArrowDownRight, Download, Mail } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { profile } from "@/data/profile";
@@ -25,7 +25,7 @@ export function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
 
-  const headlineWords = profile.hero.headline.split(" ");
+
 
   return (
     <section ref={containerRef} id="top" className="relative min-h-screen pt-32 pb-20 overflow-hidden bg-background">

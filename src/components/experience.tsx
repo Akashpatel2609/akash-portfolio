@@ -37,7 +37,7 @@ export function Experience() {
 
 
                 <div className="flex flex-col lg:w-1/3 z-20">
-                  <span className="font-mono text-sm uppercase tracking-widest text-muted mb-4">{item.duration}</span>
+                  <span className="font-mono text-sm uppercase tracking-widest text-muted mb-4">{item.date}</span>
                   <h3 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-foreground uppercase group-hover:italic transition-all">
                     {item.company}
                   </h3>

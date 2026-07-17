@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Syne, Manrope } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AnimatedBackground } from "@/components/animated-background";
 import { Header } from "@/components/header";
 import { profile } from "@/data/profile";
@@ -57,6 +58,7 @@ export default function RootLayout({
           <Header />
           {children}
         </ThemeProvider>
+        <SpeedInsights />
       </body>
     </html>
   );

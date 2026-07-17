@@ -30,7 +30,6 @@ export function PipelineTerminal() {
   const [logs, setLogs] = useState<LogLine[]>([]);
   const [currentStep, setCurrentStep] = useState(0);
   const [isRunning, setIsRunning] = useState(true);
-  const terminalEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!isRunning) return;
@@ -47,8 +46,12 @@ export function PipelineTerminal() {
     }
   }, [currentStep, isRunning]);
 
+  const terminalContainerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    terminalEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (terminalContainerRef.current) {
+      terminalContainerRef.current.scrollTop = terminalContainerRef.current.scrollHeight;
+    }
   }, [logs]);
 
   const handleRestart = () => {
@@ -90,7 +93,7 @@ export function PipelineTerminal() {
       </div>
 
       {/* Terminal Content */}
-      <div className="flex-1 overflow-y-auto p-4 font-mono text-xs leading-6 text-zinc-300 space-y-2 select-text">
+      <div ref={terminalContainerRef} className="flex-1 overflow-y-auto p-4 font-mono text-xs leading-6 text-zinc-300 space-y-2 select-text">
         {logs.map((log, idx) => {
           let colorClass = "text-zinc-300";
           if (log.type === "success") colorClass = "text-emerald-400";
@@ -111,7 +114,6 @@ export function PipelineTerminal() {
             <span className="h-4 w-2 bg-white/70 animate-pulse inline-block" />
           </div>
         )}
-        <div ref={terminalEndRef} />
       </div>
 
       {/* Mini Progress Indicator */}

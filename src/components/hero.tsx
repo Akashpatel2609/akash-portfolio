@@ -1,11 +1,11 @@
 "use client";
 
-import { ArrowDownRight, Download, Mail } from "lucide-react";
-import { motion } from "framer-motion";
+import { ArrowDownRight, Download, Mail, ChevronDown } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { profile } from "@/data/profile";
 import { cn } from "@/lib/utils";
-import { PipelineTerminal } from "@/components/pipeline-terminal";
+import { useRef } from "react";
 
 const iconMap = {
   "View Work": ArrowDownRight,
@@ -13,180 +13,153 @@ const iconMap = {
   "Contact Me": Mail
 };
 
-// Animation variants
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.1,
-    },
-  },
-} as const;
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring" as const,
-      damping: 25,
-      stiffness: 140,
-    },
-  },
-};
-
-const imageContainerVariants = {
-  hidden: { opacity: 0, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      type: "spring" as const,
-      damping: 20,
-      stiffness: 100,
-      delay: 0.3,
-    },
-  },
-};
-
-
 export function Hero() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
+
+  const headlineWords = profile.hero.headline.split(" ");
+
   return (
-    <section id="top" className="relative overflow-hidden pt-24 sm:pt-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
-          className="relative min-h-[calc(100vh-7rem)] overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-950/40 shadow-2xl backdrop-blur-md"
-        >
-          {/* Futuristic background lighting */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_18%,rgba(124,58,237,0.12),transparent_26%),radial-gradient(circle_at_85%_25%,rgba(236,72,153,0.12),transparent_28%),linear-gradient(135deg,rgba(124,58,237,0.05),transparent_36%)]" />
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:linear-gradient(to_bottom,black,transparent_86%)]" />
+    <section ref={containerRef} id="top" className="relative min-h-screen pt-32 pb-20 overflow-hidden bg-background">
+      {/* Massive Typography Background Pattern */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.03] dark:opacity-5 flex items-center justify-center">
+        <h1 className="text-[20vw] font-display font-bold leading-none tracking-tighter whitespace-nowrap text-foreground select-none">
+          ENGINEER
+        </h1>
+      </div>
 
-          <div className="relative grid min-h-[calc(100vh-7rem)] lg:grid-cols-[1.1fr_0.9fr] items-center">
-            {/* Left Content (Text & Call-to-actions) */}
-            <div className="flex flex-col justify-between border-b border-white/10 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-12 h-full">
-              <motion.div variants={containerVariants} className="space-y-6">
-                <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-3">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-200">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-violet-500"></span>
-                    </span>
-                    Open to roles
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10 h-full flex flex-col justify-center">
+        <motion.div style={{ opacity, scale }} className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center min-h-[70vh]">
+          
+          {/* Left / Top Typography */}
+          <div className="lg:col-span-7 flex flex-col justify-center">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div className="flex flex-wrap items-center gap-4 mb-8">
+                <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-foreground shadow-sm">
+                  <span className="relative flex size-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                    <span className="relative inline-flex rounded-full size-2 bg-accent"></span>
                   </span>
-                  <span className="rounded-full border border-pink-500/20 bg-pink-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-pink-300">
-                    Toronto / Analytics Systems
-                  </span>
-                </motion.div>
+                  Open to roles
+                </span>
+                <span className="text-sm font-medium text-muted uppercase tracking-widest">
+                  Toronto / Analytics Systems
+                </span>
+              </div>
 
-                <motion.div variants={itemVariants} className="max-w-4xl space-y-4">
-                  <p className="font-mono text-sm uppercase tracking-[0.26em] text-violet-400">
-                    ./akash-patel --portfolio
-                  </p>
-                  <h1 className="text-5xl font-bold leading-[0.95] tracking-[-0.04em] text-white sm:text-7xl lg:text-8xl bg-clip-text text-transparent bg-gradient-to-r from-white via-zinc-100 to-zinc-400">
-                    {profile.hero.name}
-                  </h1>
-                  <p className="text-xl font-medium text-zinc-300 sm:text-2xl">
-                    {profile.hero.title}
-                  </p>
-                  <p className="text-2xl font-semibold leading-tight tracking-[-0.02em] text-white sm:text-4xl bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-400">
-                    {profile.hero.headline}
-                  </p>
-                  <p className="text-base leading-8 text-zinc-400 sm:text-lg">
-                    {profile.hero.subheadline}
-                  </p>
-                </motion.div>
+              {/* Avant-Garde Giant Header */}
+              <h1 className="font-display text-6xl sm:text-8xl lg:text-[7rem] font-bold leading-[0.9] tracking-tighter text-foreground mb-6">
+                AKASH
+                <br />
+                <span className="text-muted italic font-serif tracking-normal pr-4">Patel.</span>
+              </h1>
 
-                <motion.div variants={itemVariants} className="flex flex-col gap-3 sm:flex-row pt-4">
-                  {profile.hero.actions.map((action) => {
-                    const Icon = iconMap[action.label as keyof typeof iconMap];
+              <div className="max-w-xl">
+                <h2 className="text-xl sm:text-3xl font-display font-medium leading-tight tracking-tight text-foreground mb-4">
+                  Turning fragmented data into <span className="bg-accent text-white px-2 italic">decision systems.</span>
+                </h2>
+                
+                <p className="text-base sm:text-lg leading-relaxed text-muted font-sans font-medium">
+                  {profile.hero.subheadline}
+                </p>
+              </div>
 
-                    return (
-                      <a
-                        key={action.label}
-                        href={action.href}
-                        target={action.href.startsWith("http") ? "_blank" : undefined}
-                        rel={action.href.startsWith("http") ? "noreferrer" : undefined}
-                        aria-label={action.label}
-                        className={cn(
-                          "inline-flex min-h-12 items-center justify-center gap-2 rounded-full border px-6 text-sm font-semibold transition-all duration-300 transform hover:scale-[1.03]",
-                          action.variant === "primary" &&
-                            "border-white bg-white text-black shadow-[0_0_30px_rgba(255,255,255,0.25)] hover:bg-zinc-200",
-                          action.variant === "secondary" &&
-                            "border-white/10 bg-zinc-900 text-white hover:border-white/30 hover:bg-white/[0.05]",
-                          action.variant === "ghost" &&
-                            "border-transparent text-zinc-400 hover:border-white/10 hover:text-white"
-                        )}
-                      >
-                        <Icon size={16} />
-                        {action.label}
-                      </a>
-                    );
-                  })}
-                </motion.div>
-              </motion.div>
+              {/* Brutalist Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 mt-10">
+                {profile.hero.actions.map((action, i) => {
+                  const Icon = iconMap[action.label as keyof typeof iconMap];
 
-              <motion.div 
-                variants={itemVariants} 
-                className="mt-12 grid gap-3 rounded-2xl border border-white/5 bg-zinc-950/50 p-4 font-mono text-xs text-zinc-500"
-              >
-                <p><span className="text-violet-400">system</span> boot: recruiter_profile loaded</p>
-                <p>mode: <span className="text-white">BI + data engineering + applied AI</span></p>
-                <p>output: <span className="text-white">dashboards / pipelines / decision systems</span></p>
-              </motion.div>
-            </div>
-
-            {/* Right Content (Picture & Terminal Simulator) */}
-            <div className="grid gap-6 p-6 sm:p-8 lg:p-12">
-              <motion.div 
-                variants={imageContainerVariants}
-                className="grid gap-4 sm:grid-cols-[0.7fr_1fr]"
-              >
-                {/* Profile Image card */}
-                <div className="relative min-h-60 overflow-hidden rounded-2xl border border-white/10 bg-zinc-900 group shadow-lg">
-                  <Image
-                    src={profile.hero.profileImage}
-                    alt={profile.hero.profileImageAlt}
-                    fill
-                    priority
-                    sizes="(min-width: 1024px) 240px, 100vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-4">
-                    <p className="text-sm font-semibold text-white">Akash Patel</p>
-                    <p className="text-xs text-zinc-400">Toronto, ON</p>
-                  </div>
-                </div>
-
-                {/* Grid metrics */}
-                <div className="grid gap-3">
-                  {profile.impactMetrics.map((metric, i) => (
-                    <motion.div
-                      key={metric.label}
-                      variants={itemVariants}
-                      custom={i}
-                      className="rounded-2xl border border-white/5 bg-zinc-900/40 p-4 shadow-md hover:border-violet-500/20 hover:bg-zinc-900/60 transition duration-300"
+                  return (
+                    <motion.a
+                      key={action.label}
+                      href={action.href}
+                      target={action.href.startsWith("http") ? "_blank" : undefined}
+                      rel={action.href.startsWith("http") ? "noreferrer" : undefined}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.4 + i * 0.1 }}
+                      className={cn(
+                        "group relative flex min-h-14 items-center justify-between gap-4 overflow-hidden px-8 text-sm font-bold uppercase tracking-widest transition-all duration-500",
+                        action.variant === "primary"
+                          ? "bg-foreground text-background hover:scale-105"
+                          : "border border-border bg-card text-foreground hover:bg-border"
+                      )}
                     >
-                      <p className="text-2xl font-bold tracking-tight text-white bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-400">
-                        {metric.value}
-                      </p>
-                      <p className="mt-1 text-[11px] leading-4 text-zinc-400">{metric.label}</p>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-
-              {/* Pipeline Terminal Simulator */}
-              <motion.div variants={itemVariants} className="w-full">
-                <PipelineTerminal />
-              </motion.div>
-            </div>
+                      <span className="relative z-10">{action.label}</span>
+                      <Icon size={18} className="relative z-10 transition-transform group-hover:translate-x-1" />
+                    </motion.a>
+                  );
+                })}
+              </div>
+            </motion.div>
           </div>
+
+          {/* Right / Bottom Spatial Images & Metrics */}
+          <div className="lg:col-span-5 relative flex flex-col justify-center">
+            <motion.div 
+              style={{ y: y1 }}
+              initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+              className="relative z-10 w-full max-w-[24rem] mx-auto lg:mr-0 aspect-[3/4] overflow-hidden bg-card border border-border shadow-2xl p-4"
+            >
+              <div className="relative w-full h-full overflow-hidden bg-muted">
+                <Image
+                  src={profile.hero.profileImage}
+                  alt={profile.hero.profileImageAlt}
+                  fill
+                  priority
+                  className="object-cover transition-all duration-700"
+                />
+              </div>
+            </motion.div>
+
+            {/* Overlapping Metric Cards */}
+            <motion.div 
+              style={{ y: y2 }}
+              className="absolute -bottom-10 -left-4 sm:left-10 lg:-left-20 z-20 grid gap-3"
+            >
+              {profile.impactMetrics.slice(0, 2).map((metric, i) => (
+                <motion.div
+                  key={metric.label}
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, delay: 0.6 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  className="bg-background border border-border p-5 shadow-xl backdrop-blur-md"
+                >
+                  <p className="font-display text-3xl font-bold tracking-tighter text-foreground">
+                    {metric.value}
+                  </p>
+                  <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-muted">{metric.label}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </motion.div>
+
+        {/* Scroll Indicator */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 1 }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
+        >
+          <div className="h-16 w-px bg-gradient-to-b from-foreground to-transparent" />
+          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground" style={{ writingMode: 'vertical-rl' }}>
+            Scroll
+          </span>
         </motion.div>
       </div>
     </section>

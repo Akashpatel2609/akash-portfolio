@@ -225,8 +225,8 @@ export const profile = {
           "Created a practical applied-AI product that turns mock interviews into actionable coaching sessions.",
         repository: "https://github.com/Akashpatel2609/PrepWise",
         demo: "https://github.com/Akashpatel2609/PrepWise",
-        screenshot: "/images/projects/prepwise.svg",
-        screenshotAlt: "PrepWise AI interview platform architecture and feedback dashboard visualization"
+        screenshot: "/images/projects/prepwise.png",
+        screenshotAlt: "Abstract soundwave and facial recognition visualization"
       }
     },
     {
@@ -254,8 +254,8 @@ export const profile = {
           "Improved executive visibility across financial and operational performance while reducing manual reporting effort.",
         repository: "Internal work - repository unavailable",
         demo: "Screenshots available on request",
-        screenshot: "/images/projects/maple-executive-analytics.svg",
-        screenshotAlt: "Maple Reinders executive analytics Power BI dashboard visualization"
+        screenshot: "/images/projects/maple.png",
+        screenshotAlt: "Sleek architectural finance dashboard visualization"
       }
     },
     {
@@ -282,8 +282,8 @@ export const profile = {
           "Reduced preparation time and enabled faster review trend analysis from large-scale customer feedback.",
         repository: "",
         demo: "https://app.powerbi.com/groups/me/reports/ad3635ea-f1f3-47f5-a5c2-936a4073bfdd/38e0b2f42920542e9818?experience=power-bi",
-        screenshot: "/images/projects/amazon-etl.svg",
-        screenshotAlt: "Amazon Reviews ETL pipeline from JSON records to Power BI reporting visualization"
+        screenshot: "/images/projects/amazon.png",
+        screenshotAlt: "Brutalist representation of big data pipelines flowing into a structured core"
       }
     },
     {
@@ -311,8 +311,8 @@ export const profile = {
           "Identified opportunities to shift underutilized vehicle capacity into higher-demand windows.",
         repository: "",
         demo: "https://app.powerbi.com/groups/me/reports/70948659-7e73-4758-80e2-a613f72bb106/8d5d9ba8102e05c81dcf?experience=power-bi",
-        screenshot: "/images/projects/uber-trip-analytics.svg",
-        screenshotAlt: "Uber trip analytics dashboard showing demand, utilization, and revenue patterns"
+        screenshot: "/images/projects/uber.png",
+        screenshotAlt: "Avant-garde mapping of city streets and glowing vehicle nodes"
       }
     },
     {
@@ -340,8 +340,8 @@ export const profile = {
           "Reduced manual reporting and helped leaders identify workforce attrition patterns faster.",
         repository: "",
         demo: "https://public.tableau.com/app/profile/akash.patel3574/viz/HR_Dashboard_17407938446160/HRSummary",
-        screenshot: "/images/projects/hr-analytics.svg",
-        screenshotAlt: "HR analytics Tableau dashboard visualization for attrition and workforce insights"
+        screenshot: "/images/projects/hr.png",
+        screenshotAlt: "Abstract organizational structure nodes connecting workforce data"
       }
     }
   ],

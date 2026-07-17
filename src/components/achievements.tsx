@@ -1,46 +1,55 @@
-import { BentoCard } from "@/components/bento-card";
-import { Reveal } from "@/components/reveal";
-import { SectionShell } from "@/components/section-shell";
+"use client";
+
 import { profile } from "@/data/profile";
+import { motion } from "framer-motion";
 
 export function Achievements() {
   const section = profile.sections.achievements;
 
   return (
-    <SectionShell id={section.id} eyebrow={section.eyebrow} title={section.title}>
-      <div className="grid gap-4">
-        {profile.achievements.map((achievement) => {
-          const Icon = achievement.icon;
+    <section id={section.id} className="py-32 bg-card border-t border-border overflow-hidden">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        
+        {/* Section Header */}
+        <div className="mb-20 md:mb-32">
+          <span className="font-mono text-sm uppercase tracking-[0.3em] text-muted">06.</span>
+          <h2 className="mt-4 font-display text-5xl md:text-8xl font-bold tracking-tighter text-foreground uppercase leading-[0.9]">
+            {section.title}
+          </h2>
+        </div>
 
-          return (
-            <Reveal key={achievement.title}>
-              <BentoCard>
-                <div className="grid gap-8 lg:grid-cols-[auto_1fr_auto] lg:items-center">
-                  <div className="grid size-14 place-items-center rounded-xl border border-white/10 bg-white/[0.075] text-white">
-                    <Icon size={28} />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-semibold text-white">{achievement.title}</h3>
-                    <p className="mt-3 max-w-3xl text-sm leading-7 text-zinc-400">
-                      {achievement.description}
-                    </p>
-                  </div>
-                  <div className="grid gap-2 sm:grid-cols-3 lg:grid-cols-1">
-                    {achievement.metrics.map((metric) => (
-                      <span
-                        key={metric}
-                        className="rounded-full border border-white/10 bg-black/30 px-4 py-3 text-sm font-semibold text-white"
-                      >
-                        {metric}
-                      </span>
-                    ))}
-                  </div>
+        <div className="grid gap-8 lg:grid-cols-2">
+          {profile.achievements.map((item, index) => {
+            return (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="group relative flex flex-col gap-6 p-10 border border-border bg-background transition-colors hover:bg-card"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <h3 className="font-display text-3xl font-bold tracking-tight text-foreground uppercase group-hover:italic transition-all">
+                    {item.title}
+                  </h3>
                 </div>
-              </BentoCard>
-            </Reveal>
-          );
-        })}
+                
+                <p className="text-lg text-muted">{item.description}</p>
+                
+                <div className="mt-auto pt-6 flex flex-wrap gap-3">
+                  {item.metrics.map((metric) => (
+                    <span key={metric} className="border border-border bg-card px-4 py-2 font-mono text-xs uppercase tracking-widest text-foreground">
+                      {metric}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
       </div>
-    </SectionShell>
+    </section>
   );
 }

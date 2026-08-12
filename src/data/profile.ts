@@ -47,7 +47,7 @@ export const profile = {
       "Currently building finance, operations, forecasting, margin, resource planning, and risk analytics workflows using Power BI, SQL, Power Query, SharePoint, Vena, and applied AI.",
     actions: [
       { label: "View Work", href: "/#projects", variant: "primary" },
-      { label: "Download Resume", href: "https://drive.google.com/file/d/1FANhCK1ZFiM6nL9dZgXHJmaNse3jFmW_/view?usp=sharing", variant: "secondary" },
+      { label: "Download Resume", href: "https://drive.google.com/file/d/1Kky3GDFarvykiwOxMd8-AUv9vryx9Vrn/view?usp=sharing", variant: "secondary" },
       { label: "Contact Me", href: "/#contact", variant: "ghost" }
     ]
   },
@@ -439,7 +439,7 @@ export const profile = {
     email: "26akashpatel99@gmail.com",
     linkedin: "http://www.linkedin.com/in/akp09",
     github: "https://github.com/Akashpatel2609",
-    resume: "https://drive.google.com/file/d/1FANhCK1ZFiM6nL9dZgXHJmaNse3jFmW_/view?usp=sharing",
+    resume: "https://drive.google.com/file/d/1Kky3GDFarvykiwOxMd8-AUv9vryx9Vrn/view?usp=sharing",
     links: [
       { label: "Location", value: "Toronto, ON", href: "#contact", icon: MapPin },
       { label: "Email", value: "26akashpatel99@gmail.com", href: "mailto:26akashpatel99@gmail.com", icon: Mail },

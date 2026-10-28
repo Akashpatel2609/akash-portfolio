@@ -430,29 +430,26 @@ export function App() {
                 <br />
                 or an idea worth building?
               </p>
-              <div className="contact-actions">
               <Button asChild>
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=26akashpatel99%40gmail.com" target="_blank" rel="noreferrer">
-                  Write in Gmail
+                <a href="https://www.linkedin.com/in/akp09" target="_blank" rel="noreferrer">
+                  Connect on LinkedIn
                   <ArrowUpRightIcon data-icon="inline-end" />
                 </a>
               </Button>
-              <a className="contact-mail-app" href="mailto:26akashpatel99@gmail.com">Use email app <ArrowUpRightIcon /></a>
-              </div>
-              <p className="contact-hint">Gmail opens in a new tab. Or copy my address below.</p>
             </div>
           </div>
-          <button
-            type="button"
-            className="contact-email reveal"
-            onClick={copyEmail}
-            aria-label="Copy email address: 26akashpatel99@gmail.com"
-          >
-            26akashpatel99@gmail.com
-            <CopyIcon aria-hidden="true" />
-          </button>
+          <div className="contact-email-row reveal">
+            <div className="contact-address">
+              <span className="contact-label">PREFER EMAIL?</span>
+              <p className="contact-email">26akashpatel99@gmail.com</p>
+            </div>
+            <button type="button" className="contact-copy" onClick={copyEmail}>
+              <CopyIcon aria-hidden="true" />
+              {copyStatus.startsWith("Email copied") ? "Copied!" : "Copy email"}
+            </button>
+          </div>
           <div className="contact-copy-feedback">
-            <p role="status" aria-live="polite">{copyStatus || "Click the address to copy it."}</p>
+            <p role="status" aria-live="polite">{copyStatus || "\u00a0"}</p>
             {copyStatus.startsWith("Copy unavailable") && <input ref={emailField} aria-label="Email address for manual copying" readOnly value="26akashpatel99@gmail.com" onFocus={(event) => event.target.select()} />}
           </div>
           <div className="footer-meta">

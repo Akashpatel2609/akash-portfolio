@@ -11,6 +11,7 @@ import { SunIcon } from "@phosphor-icons/react/dist/csr/Sun";
 import { MoonIcon } from "@phosphor-icons/react/dist/csr/Moon";
 import { PauseIcon } from "@phosphor-icons/react/dist/csr/Pause";
 import { PlayIcon } from "@phosphor-icons/react/dist/csr/Play";
+import { CopyIcon } from "@phosphor-icons/react/dist/csr/Copy";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
@@ -25,6 +26,22 @@ export function App() {
   const [ready, setReady] = useState(false);
   const [motion, setMotion] = useState(true);
   const [reduced, setReduced] = useState(false);
+  const [copyStatus, setCopyStatus] = useState("");
+  const emailField = useRef(null);
+  useEffect(() => {
+    if (copyStatus.startsWith("Copy unavailable")) {
+      emailField.current?.focus();
+      emailField.current?.select();
+    }
+  }, [copyStatus]);
+  async function copyEmail() {
+    try {
+      await navigator.clipboard.writeText("26akashpatel99@gmail.com");
+      setCopyStatus("Email copied. Paste it into your preferred email service.");
+    } catch {
+      setCopyStatus("Copy unavailable. Select the address below and copy it manually.");
+    }
+  }
   const moving = motion && !reduced;
   useEffect(() => {
     try {
@@ -413,21 +430,31 @@ export function App() {
                 <br />
                 or an idea worth building?
               </p>
+              <div className="contact-actions">
               <Button asChild>
-                <a href="mailto:26akashpatel99@gmail.com">
-                  Start a conversation
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=26akashpatel99%40gmail.com" target="_blank" rel="noreferrer">
+                  Write in Gmail
                   <ArrowUpRightIcon data-icon="inline-end" />
                 </a>
               </Button>
+              <a className="contact-mail-app" href="mailto:26akashpatel99@gmail.com">Use email app <ArrowUpRightIcon /></a>
+              </div>
+              <p className="contact-hint">Gmail opens in a new tab. Or copy my address below.</p>
             </div>
           </div>
-          <a
+          <button
+            type="button"
             className="contact-email reveal"
-            href="mailto:26akashpatel99@gmail.com"
+            onClick={copyEmail}
+            aria-label="Copy email address: 26akashpatel99@gmail.com"
           >
             26akashpatel99@gmail.com
-            <ArrowUpRightIcon />
-          </a>
+            <CopyIcon aria-hidden="true" />
+          </button>
+          <div className="contact-copy-feedback">
+            <p role="status" aria-live="polite">{copyStatus || "Click the address to copy it."}</p>
+            {copyStatus.startsWith("Copy unavailable") && <input ref={emailField} aria-label="Email address for manual copying" readOnly value="26akashpatel99@gmail.com" onFocus={(event) => event.target.select()} />}
+          </div>
           <div className="footer-meta">
             <span>© {new Date().getFullYear()} Akash Patel · Toronto</span>
             <div className="socials">

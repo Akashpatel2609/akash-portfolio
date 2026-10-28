@@ -1479,3 +1479,13 @@ html[data-motion="off"] *::after {
 @media(min-width:1680px){.sculpture{width:100%;max-width:1800px;margin-inline:auto}}
 
 body{font-family:var(--font-inter),Arial,sans-serif}
+.contact-actions { display: flex; align-items: center; gap: 12px 24px; flex-wrap: wrap; margin-top: 26px; }
+.contact .contact-actions [data-slot="button"] { margin-top: 0; }
+.contact-mail-app { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; text-decoration: underline; text-underline-offset: 5px; }
+.contact-mail-app svg { width: 18px; height: 18px; }
+.contact-top .contact-hint { font-size: 14px; margin-top: 14px; max-width: 38ch; }
+button.contact-email { background: transparent; border: 0; color: inherit; padding: 0; text-align: left; margin-bottom: 14px; min-height: 44px; }
+button.contact-email:hover { opacity: 0.75; }
+.contact-copy-feedback { margin-bottom: 54px; font-size: 14px; }
+.contact-copy-feedback input { display: block; width: min(100%, 360px); margin-top: 12px; padding: 12px; background: var(--inverse-ink); color: var(--inverse); border: 1px solid currentColor; font: inherit; }
+@media (max-width: 600px) { .contact-actions { gap: 8px; } .contact-mail-app { justify-content: center; width: 100%; } .contact-copy-feedback { margin-bottom: 32px; } }

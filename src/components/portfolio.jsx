@@ -441,12 +441,13 @@ export function App() {
           <div className="contact-email-row reveal">
             <div className="contact-address">
               <span className="contact-label">PREFER EMAIL?</span>
-              <p className="contact-email">26akashpatel99@gmail.com</p>
+              <div className="contact-email-inline">
+                <p className="contact-email">26akashpatel99@gmail.com</p>
+                <button type="button" className="contact-copy" onClick={copyEmail} aria-label="Copy email address" title="Copy email address">
+                  <CopyIcon aria-hidden="true" />
+                </button>
+              </div>
             </div>
-            <button type="button" className="contact-copy" onClick={copyEmail}>
-              <CopyIcon aria-hidden="true" />
-              {copyStatus.startsWith("Email copied") ? "Copied!" : "Copy email"}
-            </button>
           </div>
           <div className="contact-copy-feedback">
             <p role="status" aria-live="polite">{copyStatus || "\u00a0"}</p>

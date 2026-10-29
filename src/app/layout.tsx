@@ -8,13 +8,13 @@ const inter = localFont({
   weight: "100 900"
 });
 
-const title = "Akash Patel — Systems with a purpose";
+const title = "Akash's Space";
 const description = "Toronto data analyst and applied AI builder. Explore executive analytics, data engineering and PrepWise interview feedback.";
 export const viewport: Viewport = { themeColor: "#faf8f5" };
 export const metadata: Metadata = {
   metadataBase: new URL("https://akashpatel.tech"), title, description,
   alternates: { canonical: "/" },
-  icons: { icon: "/assets/akash.webp", apple: "/assets/akash.webp" },
+  icons: { icon: { url: "/assets/ap.svg", type: "image/svg+xml" } },
   openGraph: { title, description, type: "website", url: "/", images: ["/assets/hero-light.webp"] },
   twitter: { card: "summary_large_image", title, description, images: ["/assets/hero-light.webp"] }
 };
